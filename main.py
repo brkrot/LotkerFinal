@@ -1,1 +1,1 @@
-print('3')
+from LotkerFinal import Barak
