@@ -1,16 +1,8 @@
-[1991, a HYDRA base in a snowy landscape. A man enters a bunker and removes a red book marked with a black star.]
-[A technician raises a cylindrical chamber, revealing Bucky Barnes, aka the Winter Soldier.]
-[Bucky Barnes is secured in a chair, a mechanical device either side of his head causing him to howl in pain.]
-Vasily Karpov: [speaking Russian] Желание. Ржавый. Семнадцать. Рассвет. Печь. Девять. Добросердечный. Возвращение на родину. Один. Грузовой вагон.[1] ([subtitled] Longing. Rusted. Seventeen. Daybreak. Furnace. Nine. Benign. Homecoming. One. Freight car.) Доброе утро, Солдат. ([subtitled] Good morning, Soldier.)
-Bucky Barnes: Я готов отвечать. ([subtitled] Ready to comply.)
-Vasily Karpov: У меня есть для тебя миссия. Санкционируй и Извлекай. Без свидетелей.([subtitled] I have a mission for you. Sanction and extract. No witnesses.)
-[Night. A car is driving down a dirt road alone. The Winter Soldier is waiting at the side of the road with his motorcycle. As the car passes, the Winter Soldier follows. He comes alongside the car and disables it. It slams into a tree. The Winter Soldier brings the motorcycle back around and climbs off. He walks to the car trunk and rips it open, revealing a silver case containing several blue packets - recreations of the Super-Soldier serum.]
-[Back at the HYDRA base]
+Vasily Karpov:Longing. Rusted. Seventeen. Daybreak. Furnace. Nine. Benign. Homecoming. One. Freight car. Good morning, Soldier.)
+Bucky Barnes: Ready to comply.
+Vasily Karpov: I have a mission for you. Sanction and extract. No witnesses.
 Vasily Karpov: Well done, Soldier
-[Marvel Opening Credits]
-[Lagos, Nigeria, present day]
-[Wanda Maximoff, aka Scarlet Witch, adds sugar to a cup and stirs it. She looks around.]
-Steve Rogers: [on radio] All right, what do you see?
+Steve Rogers: All right, what do you see?
 Wanda Maximoff: Standard beat cops. Small station. Quiet street. It’s a good target.
 Steve Rogers: There’s an ATM in the south corner, which means . . .
 Wanda Maximoff: Cameras.
@@ -35,18 +27,10 @@ Natasha Romanoff: It’s a battering ram.
 Steve Rogers: Go now.
 Wanda Maximoff: What?
 Steve Rogers: He’s not hitting the police.
-INSTITUTE FOR INFECTIOUS DISEASES
-[A man is sitting in the guard station. He looks over as the garbage truck comes towards the gate. The driver jumps out, and the truck slams into the guard station. Two trucks rush into the compound through the newly-made hole.]
-[Soldiers in black armor emerge from the trucks, firing their rifles around the courtyard. Four soldiers fire gas canisters into the building. Soldiers wearing gas masks enter.]
-[Steve arrives and takes out several of the soldiers.]
 Steve Rogers: Body armor, AR-15's. I make 7 hostiles.
-[Sam flies in and up to a rooftop, spinning and using his wings to block gunfire. He takes out two soldiers.]
 Sam Wilson: I make 5.
-[Wanda arrives and flies over the rooftop and into the courtyard, blocking fire with her powers. She takes control of one soldier and lifts him upward.]
 Wanda Maximoff: Sam.
-[Sam glides down from the rooftop, catching the soldier on one of his wings.]
 Sam Wilson: Four.
-[Redwing flies by, scanning the inside of the building.]
 Sam Wilson: Rumlow’s on the third floor.
 Steve Rogers: Wanda, just like we practiced.
 Wanda Maximoff: What about the gas?
@@ -405,15 +389,15 @@ Sharon Carter: Tips have been pouring in since that footage went public. Everybo
 Steve Rogers: Thank you.
 Sharon Carter: And you're gonna have to hurry. We have orders to shoot on sight.
 [Zemo sits in a hotel room. He reads from Karpov's red book.]
-Helmut Zemo: Возвращение на Родину. Возвращение на Родину. Один. Один. Грузовой вагон… Грузовой вагон. Грузов- ([subtitled] Homecoming. One. One. Fright Car.) [Knocking at the door. He puts the book in a drawer and goes to the door. He reaches for a gun tucked in the back of his trouser and cocks it.]
-German Innkeeper: Herr Müller, ich habe Ihr Frühstück. ([subtitled] Mr. Müller. I have your breakfast.) [Zemo opens the door.]
-Helmut Zemo: Ich konnte es schon von weitem riechen. Danke. ([subtitled] I could smell it before I opened the door. Thank you.)
+Helmut Zemo: Homecoming. One. One. Fright Car.
+German Innkeeper:Mr. Muller. I have your breakfast. [Zemo opens the door.]
+Helmut Zemo: I could smell it before I opened the door. Thank you.
 German Innkeeper: Speck und schwarzer Kaffe. Wieder. Ich kann Ihnen auch was anderes machen, wenn Sie das möchten. ([subtitled] Side of bacon and black coffee. Again. I can make you something different, if you like.)
-Helmut Zemo: Bitte sehr, das ist wunderbar. ([subtitled] It's okay. This is wonderful.)
-German Innkeeper: Ich stell es dann mal hier hin… ([subtitled] I'll put this on your . . .)
-Helmut Zemo: Nein, nein. Das geht schon. Ich mach das. Vielen Dank, Frau Leiber. ([subtitled] No, no. It's okay. I can manage. Thank you Mrs. Leiber.) [Zemo closes the door. In the room is a large device with a cage at the bottom and a drum of coppered wire on top.]
+Helmut Zemo:It's okay. This is wonderful.
+German Innkeeper: I'll put this on your . . .
+Helmut Zemo: No, no. It's okay. I can manage. Thank you Mrs. Leiber.
 [Bucharest. Bucky is in civvies at a fruit store. He buys some plums!]
-Bucky Barnes: [talking to the vendor in Romanian] ([assumed translation] How are they? Are they good? Give me six, thank you.[2])
+Bucky Barnes: How are they? Are they good? Give me six, thank you.
 [In a black cap and casual jacket Bucky walks along scanning around. Across the street he spots a twenty-something vender at a news-stand watching him. Bucky glances away, then looks back at the vender who's still watching him. The vender runs from his kiosk. Bucky goes over and picks up a paper. On the front page there are surveillance-photos of a man and the head line: 'Winter Soldier cautat pentru Bombardmentul din Viena'. Bucky glances around tensely.]
 [In his dark blue, armored suit with his shield on his arm Steve is in a small apartment. He looks around, there's a mattress with disheveled covers and various bits of cheap looking furniture. The kitchen and bedroom are in the same room. Steve finds a notebook on top of the fridge. He picks it up and opens it. There are tabs of varying colors sticking out from amongst the pages.]
 Sam Wilson: [on radio] Heads up, Cap. German Special Forces, approaching from the south.
@@ -440,7 +424,7 @@ GSG-9 Soldier: Schieß die Tür auf! (Shoot the door!) [The cop slams the batter
 Steve Rogers: Buck, stop! You're gonna kill someone.
 Bucky Barnes: [Bucky slams Steve down and punches a hole in the floor.] I'm not gonna kill anyone.
 [Bucky grabs a backpack from under the floorboards and throws it out of the window. Bucky and Steve get behind Steve's shield to avoid gunfire. Bucky shoves Steve and he knocks a cop over. Bucky holds up his metal hand and repells bullets, then slams a cop into shelves. Bucky picks up a large cement brick and slams it into a cop. Steve fights a cop on the balcony. A cop shoots around the door outside. Bucky punches through the wall beside he door. He lays into the cops. A cop descends through a sky-light on a zip wire. Bucky grabs the cop's gun and slams him into the wall. Bucky bashes a couple of cops with the battering ram. More of the police team hurry up the stairwell. Bucky jumps on the zip-line-guy and swings down a level.]
-GSG-9 Soldier: Der Verdächtige ist ausgebrochen. Er ist am östlichen Treppenschacht. ([subtitled] Suspect has broken containment! He's headed down the east stairwell!)
+GSG-9 Soldier: Suspect has broken containment! He's headed down the east stairwell!
 [Steve grabs the radio and crushes it. Steve jumps down a level as Bucky keeps punching the cops. Bucky tosses one of them over the railing and Steve catches him, stopping the cop from falling. He looks at Bucky wearily.]
 Steve Rogers: Come on, man.
 [Steve throws the cop up onto the landing. Bucky breaks a banister and swings down on it. Steve hurls a cop over his shoulders. Bucky lays into jet more cops and takes them out. A cop aims at Bucky and Steve knocks the gun from his hands with his shield which sticks in the wall. Bucky leaps down the stairwell and catches onto a railing. Steve pulls his shiel out of the wall. Bucky climbs up then runs along a corridor and leaps off a balcony. He tumbles onto the lower roof of the neighboring building where he finds where his backpack. he picks it up and runs.]
@@ -557,8 +541,8 @@ Sharon Carter: I didn't write it. [Sharon pushes a button witch stops the restri
 Helmut Zemo: I'm not here to judge you. I just want to ask you a few questions. Do you know where you are, James? I can't help you if you don't talk to me, James.
 Bucky Barnes: My name is Bucky.
 [At the power station. The van driver honks and looks impatient watching the custodian's hut's front door.]
-Delivery Truck Driver: Hallo? ([subtitled] Hello?) [The custodian comes outside and the driver comes out of his van.] Hey. Ich hab eine große für dich. ([subtitled] Hey. I have a big one for you.) [He opens the van's back doors and removes a large wooden crate.] Ja. Okay, hier unterzeichnen. (Okay. Here. Just sign here.)
-Custodian: Hier? (Here?)
+Delivery Truck Driver: Hello? [The custodian comes outside and the driver comes out of his van.] Hey. Ich hab eine große für dich. ([subtitled] Hey. I have a big one for you.) [He opens the van's back doors and removes a large wooden crate.] Ja. Okay, hier unterzeichnen. (Okay. Here. Just sign here.)
+Custodian: Here?)
 Delivery Truck Driver: Ja. (Yeah.) [The custodian signs for the crate.]
 [At the UN-bunker Steve studies the blurry photograph of the man who bombed the congress in Vienna.]
 Steve Rogers: Why would the Task Force release this photo to begin with?
@@ -578,25 +562,24 @@ Delivery Truck Driver: Ich weiß es nicht. (I don't know.)
 [The device erupts. A bubble of energy engulfs the power station and sparks fly. In the city traffic lights fail. In the bunker the lights go out.]
 Everett Ross: Great. Come on, guys, get me eyes on Barnes. Go.
 Tony Stark: FRIDAY, get me the source of that outage.
-Sharon Carter: [In the office.] Sub-level 5, east wing. [T'Challa spots Steve and Sam bolting.]
-[In Bucky's pod.]
+Sharon Carter:  Sub-level 5, east wing.
 Bucky Barnes: What the hell is this?
 Helmut Zemo: Why don't we discuss your home? Not Romania. Certainly not Brooklyn, no. I mean, your real home. [Zemo removes his glasses then walks towards Bucky reading from the red book by torchlight.] Желание. ([subtitled] Longing.)
-Bucky Barnes: [Bucky shuts his eyes.] No. [Bucky's head snaps back.]
-Helmut Zemo: Ржавый. ([subtitled] Rusted.)
+Bucky Barnes: No.
+Helmut Zemo:  Rusted.)
 Bucky Barnes: Stop.
-Helmut Zemo: Семнадцать. ([subtitled] Seventeen.)
-Bucky Barnes: [Bucky's metal arm trembles in its restraint.] Stop. [He sneers angrily.]
-Helmut Zemo: Рассвет. ([subtitled] Daybreak.)
+Helmut Zemo:  Seventeen.)
+Bucky Barnes:  Stop. [He sneers angrily.]
+Helmut Zemo:  Daybreak.)
 [Bucky screams, clenches his fist and rips free of his restraints.]
-Helmut Zemo: Печь. ([subtitled] Furnace.) Девять. ([subtitled] Nine.)
+Helmut Zemo:   Furnace Nine.)
 [Bucky thumps the inside of the pod.]
-Helmut Zemo: Добросердечный. ([subtitled] Benign.)
+Helmut Zemo:   Benign.)
 [Bucky punches harder.]
-Helmut Zemo: Возвращение на Родину. ([subtitled] Homecoming.) Один. ([subtitled:] One.) Грузовой вагон. ([subtitled] Freight car.)
+Helmut Zemo:   Homecoming.)  One.  Freight car.)
 [Bucky batteres the front of the pod with his metal fist and the glass screen flies clear. Zemo slowly rounds the pod with the book and the torch in hand. he stands before Bucky who straightens, a dark frown on his face.]
-Helmut Zemo: Солдат? ([subtitled] Soldier?)
-Bucky Barnes: Я готов отвечать. ([subtitled] Ready to comply.)
+Helmut Zemo:   Soldier?)
+Bucky Barnes:  Ready to comply.)
 Helmut Zemo: Mission report. December 16, 1991.
 [Steve and Sam arrive outside the chamber. Red emergency lights flash all around. There are many agents slumped on the floor. All of them out cold.]
 Helmut Zemo: Help me. Help.
@@ -625,7 +608,7 @@ Sam Wilson: Damn it. [he looks around the wide courtyard and scowls.]
 [At an airport Zemo listens to a phone message.:]
 Zemo's Wife: He asked me again if you were going to be there. I said I wasn't sure. You should've seen his little face. Just try, okay? I'm going to bed. I love you.
 [Frowning Zemo ends the call. A TV news report is playing nearby:]
-News anchor #5: James Barnes, der mit dem Bombenanschlag auf die UN in Wien in Verbindung gebracht wird, ist heute aus der Haft entflohen. Ebenfalls vermisst werden die Avengers Captain Steve Rogers und Sam Wilson. ([subtitled:] James Barnes, the suspect in the UN Vienna bombing escaped custody today. Also missing Avenger Captain Steve Rogers and Sam Wilson.)
+[James Barnes, the suspect in the UN Vienna bombing escaped custody today. Also missing Avenger Captain Steve Rogers and Sam Wilson.)
 [Zemo eyes the TV screen. He stands in line at a departures gate. The screen above the gate reads: 'Gate 06 | Berlin Flughafen | AEM2103 | 14:10 | Moskau/Moscow']
 [In a huge abandoned warehouse Bucky comes to with his metallic left arm clamped in a huge industrial vice. Steve peers through a gap at a chopper flying overhead. Sam's over by Bucky.]
 Sam Wilson: Hey, Cap! [Steve goes over to join Sam by Bucky who sits with his arm in the vice. They stare at him.]
@@ -648,9 +631,9 @@ Bucky Barnes: Because I'm not the only Winter Soldier.
 Josef / Super Soldier #1: It hurts! [He struggles in leather bindings. A viewing slot is closed.]
 [Karpov is sitting at a desk in a corridor, making notes and listening. Karpov opens the door to a lab and switches on the light. Josef is sitting on a bed. He looks up at Karpov.]
 [Bucky and Josef fight each other in a barred chamber. The four others who were given the blue liquid are there. Josef kicks with enormous power, sending Bucky flying. Watching Karpov folds his arms.
-Vasily Karpov: Очень хорошо, Иосиф. ([subtitled] Good work.)
+Vasily Karpov:   Good work.)
 [A medic takes Josef's pulse and Josef slams him onto the floor. A soldier clubs Josef onto the back with no effect. Karpov gets behind Bucky and aims a gun.]
-Vasily Karpov: Солдат, вытащи меня отсюда! ([subtitled] Get me out of here.)
+Vasily Karpov:  Get me out of here.)
 [Josef and the other four Winter Soldiers effortlessly dispatch a squad of Soldiers. Bucky escorts covering Karpov from the barred chamber, batting guards aside.]
 Steve Rogers: Who were they?
 Bucky Barnes: Their most elite death squad. More kills than anyone in HYDRA history. And that was before the serum.
@@ -1017,11 +1000,11 @@ FRIDAY: Heartbeat detected. Emergency medical is on its way.
 Sam Wilson: [He swoops down and lands on his feet. His wings retract.] I'm sorry. [Tony zaps Falcon backwards with a blast of energy from the palm of his suit. Vision glides to the ground just in front of Falcon. Stony faced Tony remains with his arms around War Machine.]
 [Somewhere in Siberia, Zemo makes a phone call.]
 German Innkeeper: Guten Morgen, Zimmerservice? (Good morning. Room service.)
-Helmut Zemo: Guten Morgen Frau Leiber. Zimmer 201 hier (Good morning, Mrs. Leiber. [subtitled] This is room 201.)
-German Innkeeper: Ah, Herr Müller. Speck und schwarzer Kaffee für Sie, ja? (Ah, Mr. Müller. [subtitled] Bacon and black coffee again today?)
-Helmut Zemo: Wie gut Sie mich kennen. ([subtitled] You know me so well.)
+Helmut Zemo: Guten Morgen Frau Leiber. Zimmer 201 hier (Good morning, Mrs. Leiber.  This is room 201.)
+German Innkeeper: Bacon and black coffee again today?)
+Helmut Zemo:  You know me so well.)
 [In his room in Berlin, Germany.]
-German Innkeeper: Hallo? Ihr Frühstück ist hier. Darf ich mich reinlassen? Herr Müller? Herr Müller? Oh mein Gott! ([subtitled] Hello? Your breakfast is here. May I let myself in? Mr Müller? Mr Müller? Oh God!) [She comes in and discovers the dead body of Dr. Theo Broussard in the bathtub.]
+German Innkeeper:  Hello? Your breakfast is here. May I let myself in? Mr Müller? Mr Müller? Oh God!) [She comes in and discovers the dead body of Dr. Theo Broussard in the bathtub.]
 [Steve flies the Quinjet towards mountains, Bucky sits behind him.]
 Bucky Barnes: What's gonna happen to your friends?
 Steve Rogers: [Steve stares ahead, heavyhearted. He sighs and shakes his head.] Whatever it is… I'll deal with it.
