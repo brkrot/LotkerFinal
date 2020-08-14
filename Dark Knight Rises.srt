@@ -8531,8 +8531,3 @@ They better leave no stone unturned.
 02:35:08,299 --> 02:35:11,718
 We can't leave a string of pearls
 on the manifest as lost.
-
-1912
-02:44:27,899 --> 02:44:29,900
-
-
