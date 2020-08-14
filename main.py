@@ -1,6 +1,23 @@
 import Barak as b
+import Avihay as a
 
 
+movie1 = 'Dark Knight Rises'
+movie2 = 'Captain America - Civil War'
+
+
+'---------------------------------------Question 2-------------------------------------'
+#Part A
 #This functions is making ab.csv table and srt-script file for each one of the movies
-b.makeABandScriptSrt('Dark Knight Rises')
-b.makeABandScriptSrt('Captain America - Civil War')
+#b.makeABandScriptSrt(movie1)
+#b.makeABandScriptSrt(movie2)
+
+#Part B
+#G1 = a.make_all_graphs(movie1)
+#G2 = a.make_all_graphs(movie2)
+
+#Part C
+#Part D
+'---------------------------------------Question 3-------------------------------------'
+
+b.VORONOI(movie2)

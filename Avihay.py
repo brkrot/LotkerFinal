@@ -12,7 +12,7 @@ import transitionMatrix as tm
 import pandas
 import sys
 
-AB_FilePath = 'AB.csv'
+#AB_FilePath = movieName+' AB.csv'
 
 def make_civilWar_script():
     look_for_ending_bracelet = False
@@ -45,7 +45,8 @@ def make_civilWar_script():
     output_file.close()
 
 
-def make_all_graphs():
+def make_all_graphs(movieName):
+    AB_FilePath = movieName + ' AB.csv'
     thisdict = {}
     with open(AB_FilePath) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
