@@ -1,25 +1,21 @@
 import codecs
-import re
-import string
 import csv
 import networkx
 import networkx as nx
 import matplotlib.pyplot as plt
-from scipy.optimize import minimize
 import numpy as np
 from sympy import Symbol
-import transitionMatrix as tm
-import pandas
 import sys
 
 #AB_FilePath = movieName+' AB.csv'
 
-def make_civilWar_script():
+
+def make_civilwar_script():
     look_for_ending_bracelet = False
-    flag= True
+    flag = True
     output_file = open("Captain America - Civil War - altered.txt", "w")
     with codecs.open("Captain_America_-_Civil_War.txt", encoding="utf-8") as in_file:
-        while(flag):
+        while flag:
             try:
                 line = in_file.readline()
                 new_line = line.replace('\n', '').replace("[", "@*").replace(']', '$@').split('@')
@@ -273,13 +269,13 @@ def make_all_graphs(movieName):
             speakersDictionary[speaker] = 1
 
     # Eraasing wrong names
-    del speakersDictionary['i']
-    del speakersDictionary['harry/ron']
+   # del speakersDictionary['i']
+   # del speakersDictionary['harry/ron']
     str1 = 'HARRY/RON/FRED/GEORGE'
     str1 = str1.lower()
-    del speakersDictionary[str1]
-    del speakersDictionary['professor']
-    del speakersDictionary['harry/ron/hermione']
+   # del speakersDictionary[str1]
+   # del speakersDictionary['professor']
+   # del speakersDictionary['harry/ron/hermione']
     # print(speakersDictionary)
 
     'creaintg list of all the names in the subtitles 1 after the other'
@@ -300,32 +296,131 @@ def make_all_graphs(movieName):
                 G3[listOfTalkers[y]][listOfTalkers[y + 1]]['weight'] += 1
             else:
                 G3.add_edge(listOfTalkers[y], listOfTalkers[y + 1], weight=1)
-    for i in range(0, 18):
-        G3.add_edge(y, y, weight=1)
-        y += 1
+    #for i in range(0, 18):
+     #   G3.add_edge(y, y, weight=1)
+      #  y += 1
     # ******************************************************************************************************
-    # the Optimization
-    Gdw_srt_matrix = nx.to_numpy_matrix(G3)  # srt adjacency matrix
-    Gdw_script_matrix = nx.to_numpy_matrix(G_direct_weighted)  # script adjacency matrix
-    x = []
-    Dx = []
-    for i in range(1, 50):  # 49 vertexes
-        x.append(Symbol('x' + str(i)))
-        Dx.append(x[i - 1])
 
-    def g(Dx):
-        Dxdiag = np.diag(Dx)
-        ABscript = Dxdiag * Gdw_script_matrix
-        A = Gdw_srt_matrix - ABscript
-        func = (A * np.transpose(A)).trace()
-        return func[0]
-
-    #res = minimize(g, [1] * 49)
-    #print(res.x)
     return [G_direct_weighted, G_direct_no_weights, G_undircet_weighted, G_undircet_no_weights]
 
+
+def four_main_characters(movie1, G1, movie2, G2):
+    G1_direct_weighted = G1[0]
+    G1_direct_no_weights = G1[1]
+    G1_undircet_weighted = G1[2]
+    G1_undircet_no_weights = G1[3]
+    #
+    G2_direct_weighted = G2[0]
+    G2_direct_no_weights = G2[1]
+    G2_undircet_weighted = G2[2]
+    G2_undircet_no_weights = G2[3]
+
+    # Part C
+    print(movie1, ' Nodes:\n', G1_direct_weighted.number_of_nodes(), '\n')
+    print(movie1, ' Edges:\n', G1_direct_weighted.number_of_edges(), '\n')
+    print(movie2, ' Nodes:\n', G2_direct_weighted.number_of_nodes(), '\n')
+    print(movie2, ' Edges:\n', G2_direct_weighted.number_of_edges(), '\n')
+
+    # Part D         - First Movie -
+    # page Rank - made in b                 #1
+    # katz - works on directed only         #2
+    print(movie1, 'Direct_no_weights - Katz:\n',
+          (sorted((nx.katz_centrality(G1_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie1, 'Direct_weighted - Katz:\n',
+          (sorted((nx.katz_centrality(G1_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)), '\n')
+    # DegreeCentrality                      #3
+    print(movie1, '- Direct_no_weights - degree_centrality:\n',
+          (sorted((nx.degree_centrality(G1_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie1, '- Direct_weighted - degree_centrality:\n',
+          (sorted((nx.degree_centrality(G1_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie1, '- Undircet_no_weights - degree_centrality:\n',
+          (sorted((nx.degree_centrality(G1_undircet_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie1, '- Undircet_weighted - degree_centrality:\n',
+          (sorted((nx.degree_centrality(G1_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    # ClosenessCentrality                   #4
+    print(movie1, '- Direct_no_weights - Closeness Centrality:\n', (
+        sorted((nx.closeness_centrality(G1_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie1, '- Direct_weighted - Closeness Centrality:\n',
+          (sorted((nx.closeness_centrality(G1_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie1, '- Undircet_no_weights - Closeness Centrality:\n', (
+        sorted((nx.closeness_centrality(G1_undircet_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie1, '- Undircet_weighted - Closeness Centrality:\n', (
+        sorted((nx.closeness_centrality(G1_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    # Load Centrality                         #5
+    nx.load_centrality(G1_direct_no_weights)
+    print(movie1, '- Direct_no_weights - Load Centrality:\n',
+          (sorted((nx.load_centrality(G1_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie1, '- Direct_weighted - Load Centrality:\n',
+          (sorted((nx.load_centrality(G1_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)), '\n')
+    print(movie1, '- Undircet_no_weights - Load Centrality:\n',
+          (sorted((nx.load_centrality(G1_undircet_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie1, '- Undircet_weighted - Load Centrality:\n',
+          (sorted((nx.load_centrality(G1_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    nx.eigenvector_centrality(G)
+    # EigenvectorCentrality  - nx.eigenvector_centrality(G)
+    # BetweennessCentrality  - nx.betweenness_centrality(G)
+
+    #           -   Second Movie    -
+    # page Rank - made in b                 #1
+    # katz - works on directed only         #2
+    # print(movie2, 'Direct_no_weights - Katz:\n', (sorted((nx.katz_centrality(G2_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)), '\n')
+    # print(movie2, 'Direct_weighted - Katz:\n', (sorted((nx.katz_centrality(G2_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)), '\n')
+    # DegreeCentrality                      #3
+    print(movie2, '- Direct_no_weights - degree_centrality:\n',
+          (sorted((nx.degree_centrality(G2_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie2, '- Direct_weighted - degree_centrality:\n',
+          (sorted((nx.degree_centrality(G2_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie2, '- Undircet_no_weights - degree_centrality:\n',
+          (sorted((nx.degree_centrality(G2_undircet_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie2, '- Undircet_weighted - degree_centrality:\n',
+          (sorted((nx.degree_centrality(G2_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    # ClosenessCentrality                   #4
+    print(movie2, '- Direct_no_weights - Closeness Centrality:\n', (
+        sorted((nx.closeness_centrality(G2_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie2, '- Direct_weighted - Closeness Centrality:\n',
+          (sorted((nx.closeness_centrality(G2_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie2, '- Undircet_no_weights - Closeness Centrality:\n', (
+        sorted((nx.closeness_centrality(G2_undircet_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie2, '- Undircet_weighted - Closeness Centrality:\n', (
+        sorted((nx.closeness_centrality(G2_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    # Load Centrality                         #5
+    print(movie2, '- Direct_no_weights - Load Centrality:\n',
+          (sorted((nx.load_centrality(G2_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie2, '- Direct_weighted - Load Centrality:\n',
+          (sorted((nx.load_centrality(G2_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)), '\n')
+    print(movie2, '- Undircet_no_weights - Load Centrality:\n',
+          (sorted((nx.load_centrality(G2_undircet_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+    print(movie2, '- Undircet_weighted - Load Centrality:\n',
+          (sorted((nx.load_centrality(G2_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
+          '\n')
+
+
 def main(*argv):
-    make_civilWar_script()
+
+    #make_civilwar_script()
+
     G = make_all_graphs()
 
     G_direct_weighted = G[0]
@@ -345,7 +440,7 @@ def main(*argv):
     np.set_printoptions(threshold=np.inf)
 
     print('matrix after alteration with lowest distances:', mat4)
-    print(networkx.algorithms.hierarchy.flow_hierarchy(G_direct_weighted))
+    print('networkx.algorithms.hierarchy.flow_hierarchy(G_direct_weighted):\n', networkx.algorithms.hierarchy.flow_hierarchy(G_direct_weighted))
 
 
 if __name__ == "__main__":
