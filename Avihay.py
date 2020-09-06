@@ -154,17 +154,17 @@ def make_all_graphs(movieName):
         # printing no weight graph
     position = nx.circular_layout(G_direct_no_weights)
     edge_labeld = nx.get_edge_attributes(G_direct_no_weights, 'weight')
-    nx.draw(G_direct_no_weights, pos=position, node_color='r', edge_color='b', arrowstyle='-|>')
+    nx.draw(G_direct_no_weights, pos=position, title='G_direct_no_weights', node_color='r', edge_color='b', arrowstyle='-|>')
     nx.draw_networkx_labels(G_direct_no_weights, pos=position, font_size=5)
     nx.draw_networkx_edge_labels(G_direct_no_weights, pos=position, edge_labels=edge_labeld, font_size=5)
     plt.draw()
-    plt.show()
+    #plt.show()
 
     l1 = sorted(dict_directed_talker_unweighted.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
     print("\nDirected $ Unweighted graph 4 main character :\n", l1[0], l1[1], l1[2], l1[3])
 
     # *********directed graph weighted
-    G_direct_weighted = nx.Graph().to_directed()
+    G_direct_weighted = nx.DiGraph()
     for v in dict_directed:
         name = v.split("-&-")
         # print(v, "===", name[0], name[1])
@@ -177,7 +177,7 @@ def make_all_graphs(movieName):
     nx.draw_networkx_labels(G_direct_weighted, pos=position, font_size=5)
     nx.draw_networkx_edge_labels(G_direct_weighted, pos=position, edge_labels=edge_labeled, font_size=5)
     plt.draw()
-    plt.show()
+    #plt.show()
 
     l1 = sorted(dict_directed_talker_weighted.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
     print("\nDirected $ weighted graph 4 main character :\n", l1[0], l1[1], l1[2], l1[3])
@@ -195,7 +195,7 @@ def make_all_graphs(movieName):
     nx.draw_networkx_labels(G_undircet_no_weights, pos=position, font_size=5)
     nx.draw_networkx_edge_labels(G_undircet_no_weights, pos=position, edge_labels=edge_labeled, font_size=5)
     plt.draw()
-    plt.show()
+    #plt.show()
 
     l1 = sorted(dict_undirected_talker_unweighted.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
     print("\nUn - Directed $ Unweighted graph 4 main character :\n", l1[0], l1[1], l1[2], l1[3])
@@ -215,7 +215,7 @@ def make_all_graphs(movieName):
     nx.draw_networkx_labels(G_undircet_weighted, pos=position, font_size=5)
     nx.draw_networkx_edge_labels(G_undircet_weighted, pos=position, edge_labels=edge_labeled, font_size=5)
     plt.draw()
-    plt.show()
+    #plt.show()
 
     l1 = sorted(dict_undirected_talker_weighted.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
     print("\nUn - Directed $ Weighted graph 4 main character :\n", l1[0], l1[1], l1[2], l1[3])
@@ -289,7 +289,7 @@ def make_all_graphs(movieName):
     print(listOfTalkers)
 
     '******************3, directed weighted graph***************'
-    G3 = nx.Graph().to_directed()
+    G3 = nx.DiGraph()
     G3.add_nodes_from(listOfTalkers)
     for y in range(len(listOfTalkers) - 1):
         if ((listOfTalkers[y] != listOfTalkers[y + 1])):
@@ -330,6 +330,7 @@ def four_main_characters(movie1, G1, movie2, G2):
           '\n')
     print(movie1, 'Direct_weighted - Katz:\n',
           (sorted((nx.katz_centrality(G1_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)), '\n')
+
     # DegreeCentrality                      #3
     print(movie1, '- Direct_no_weights - degree_centrality:\n',
           (sorted((nx.degree_centrality(G1_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
@@ -369,15 +370,30 @@ def four_main_characters(movie1, G1, movie2, G2):
     print(movie1, '- Undircet_weighted - Load Centrality:\n',
           (sorted((nx.load_centrality(G1_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
           '\n')
-    # nx.eigenvector_centrality(G)
-    # EigenvectorCentrality  - nx.eigenvector_centrality(G)
-    # BetweennessCentrality  - nx.betweenness_centrality(G)
+    #eigenvector_centrality
+    print(movie1, '- dircet_weighted - eigenvector_centrality:\n',
+          (sorted((nx.eigenvector_centrality(G1_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie1, '- dircet_unweighted - eigenvector_centrality:\n',
+          (sorted((nx.eigenvector_centrality(G1_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie1, '- undircet_weighted - eigenvector_centrality:\n',
+          (sorted((nx.eigenvector_centrality(G1_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie1, '- undircet_unweighted - eigenvector_centrality:\n',
+          (sorted((nx.eigenvector_centrality(G1_undircet_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    # BetweennessCentrality
+    print(movie1, '- dircet_weighted - betweenness_centrality:\n',
+          (sorted((nx.betweenness_centrality(G1_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie1, '- dircet_unweighted - betweenness_centrality:\n',
+          (sorted((nx.betweenness_centrality(G1_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie1, '- undircet_weighted - betweenness_centrality:\n',
+          (sorted((nx.betweenness_centrality(G1_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie1, '- undircet_unweighted - betweenness_centrality:\n',
+          (sorted((nx.betweenness_centrality(G1_undircet_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
 
     #           -   Second Movie    -
     # page Rank - made in b                 #1
     # katz - works on directed only         #2
-    # print(movie2, 'Direct_no_weights - Katz:\n', (sorted((nx.katz_centrality(G2_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)), '\n')
-    # print(movie2, 'Direct_weighted - Katz:\n', (sorted((nx.katz_centrality(G2_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)), '\n')
+    #print(movie2, 'Direct_no_weights - Katz:\n', (sorted((nx.katz_centrality(G2_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)), '\n')
+    #print(movie2, 'Direct_weighted - Katz:\n', (sorted((nx.katz_centrality(G2_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)), '\n')
     # DegreeCentrality                      #3
     print(movie2, '- Direct_no_weights - degree_centrality:\n',
           (sorted((nx.degree_centrality(G2_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
@@ -416,6 +432,24 @@ def four_main_characters(movie1, G1, movie2, G2):
     print(movie2, '- Undircet_weighted - Load Centrality:\n',
           (sorted((nx.load_centrality(G2_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
           '\n')
+    # eigenvector_centrality
+    print(movie2, '- dircet_weighted - eigenvector_centrality:\n',
+          (sorted((nx.eigenvector_centrality(G2_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie2, '- dircet_unweighted - eigenvector_centrality:\n',
+          (sorted((nx.eigenvector_centrality(G2_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie2, '- undircet_weighted - eigenvector_centrality:\n',
+          (sorted((nx.eigenvector_centrality(G2_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie2, '- undircet_unweighted - eigenvector_centrality:\n',
+          (sorted((nx.eigenvector_centrality(G2_undircet_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    # BetweennessCentrality
+    print(movie2, '- dircet_weighted - betweenness_centrality:\n',
+          (sorted((nx.betweenness_centrality(G2_direct_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie2, '- dircet_unweighted - betweenness_centrality:\n',
+          (sorted((nx.betweenness_centrality(G2_direct_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie2, '- undircet_weighted - betweenness_centrality:\n',
+          (sorted((nx.betweenness_centrality(G2_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+    print(movie2, '- undircet_unweighted - betweenness_centrality:\n',
+          (sorted((nx.betweenness_centrality(G2_undircet_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
 
 
 def main(*argv):
