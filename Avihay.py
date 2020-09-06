@@ -43,6 +43,7 @@ def make_civilwar_script():
 
 def make_all_graphs(movieName):
     AB_FilePath = movieName + ' AB.csv'
+    srt_script = movieName + ' srt-script.csv'
     thisdict = {}
     with open(AB_FilePath) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
@@ -251,7 +252,7 @@ def make_all_graphs(movieName):
             speakers.append(row['Speaker'])
     '******************Getting the text of the subtitles from the srt-English.csv**************************'
     text = []
-    with open('C:\\Users\\DELL\\PycharmProjects\\untitled\\SocialCourse\\srt-English.csv') as csvFile:
+    with open(srt_script) as csvFile:
         # Works if the file is in the same folder,
         # Otherwise include the full path
         reader = csv.DictReader(csvFile)
@@ -368,7 +369,7 @@ def four_main_characters(movie1, G1, movie2, G2):
     print(movie1, '- Undircet_weighted - Load Centrality:\n',
           (sorted((nx.load_centrality(G1_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),
           '\n')
-    nx.eigenvector_centrality(G)
+    # nx.eigenvector_centrality(G)
     # EigenvectorCentrality  - nx.eigenvector_centrality(G)
     # BetweennessCentrality  - nx.betweenness_centrality(G)
 
