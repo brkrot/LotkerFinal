@@ -1,3 +1,5 @@
+import collections
+
 import Barak as b
 import Avihay
 from LotkerFinal import Barak as b
@@ -52,3 +54,19 @@ movie_data[movie2]['full_sub'] = a.convert_sub_to_string_and_filteration(movie_d
 print(movie_data[movie1]['full_sub'], '\n\n', movie_data[movie2]['full_sub'])
 #Todo: print the graphs
 #TODO:count the words apperences' can be don simply using dictionary
+
+count = collections.Counter(movie_data[movie1]['full_sub'])
+movie_data[movie1]['most_common_20'] = count.most_common(20)
+print('Most common words:\n',movie_data[movie1]['most_common_20'])
+
+count = collections.Counter(movie_data[movie2]['full_sub'])
+movie_data[movie2]['most_common_20'] = count.most_common(20)
+print('Most common words:\n',movie_data[movie2]['most_common_20'])
+
+"""# List of all words across tweets
+all_words_no_urls = list(itertools.chain(*words_in_tweet))
+
+# Create counter
+counts_no_urls = collections.Counter(all_words_no_urls)
+
+cou"""
