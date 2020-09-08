@@ -4,10 +4,49 @@ import networkx
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
+from nltk.corpus.europarl_raw import english
 from sympy import Symbol
 import sys
+import string
+import pandas as pd
+from dataclasses import dataclass
+import nltk
+import re
+import numpy as np
+import pandas as pd
+from pprint import pprint
+from nltk.corpus import stopwords
+# Gensim
+import gensim
+import gensim.corpora as corpora
+from gensim.utils import simple_preprocess
+from gensim.models import CoherenceModel
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+nltk.download('punkt')
+# spacy for lemmatization
+import nltk
+# Plotting tools
+import pyLDAvis
+import pyLDAvis.gensim  # don't skip this
+import matplotlib.pyplot as plt
+from nltk.stem import PorterStemmer
+# Enable logging for gensim - optional
+import logging
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.ERROR)
 
+import warnings
+warnings.filterwarnings("ignore",category=DeprecationWarning)
 #AB_FilePath = movieName+' AB.csv'
+
+
+@dataclass
+class Line:
+    num: int
+    talker: string
+    sub: string
+    num_of_words: int
 
 
 def make_civilwar_script():
@@ -450,6 +489,87 @@ def four_main_characters(movie1, G1, movie2, G2):
           (sorted((nx.betweenness_centrality(G2_undircet_weighted).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
     print(movie2, '- undircet_unweighted - betweenness_centrality:\n',
           (sorted((nx.betweenness_centrality(G2_undircet_no_weights).items()), key=lambda kv: (kv[1], kv[0]), reverse=True)),'\n')
+
+
+def collect_data_from_AB(movie, G):
+    movie = movie + ' AB.csv'
+    df = pd.read_csv(movie)
+    list = [] #list of lineim
+    counter = 0
+    #print(df)
+    for line in range (0,len(df)):
+        if not (type(df['What is said'][line]) == float):
+            counter+=1
+            #print(df['Speaker'][line], '\t', df['What is said'][line])
+            list.append( Line(counter, df['Speaker'][line], df['What is said'][line], len(df['What is said'][line].replace('\t', '').replace('  ', '').replace('\n','').split(' '))))
+    print(len(list))
+    return{'Graph':G, 'list_of_lines': list}
+
+
+def make_clock_events(lines):
+    Ce = []
+    Ce_norm = []
+    max_num_of_events = 0
+    for line in lines:
+        #print(line)
+        Ce.append(line.num)
+        if line.num >max_num_of_events:
+            max_num_of_events = line.num
+    #normCe
+    for x in Ce:
+        Ce_norm.append(float(x/max_num_of_events))
+    return [Ce,Ce_norm]
+
+
+def make_clock_words(lines):
+    Cw = []
+    Cw_norm = []
+    sum_of_words = 0
+    for line in lines:
+        #print(line)
+        sum_of_words += line.num_of_words
+        Cw.append(sum_of_words)
+    #normCe
+    for x in Cw:
+        Cw_norm.append(float(x/sum_of_words))
+    return [Cw,Cw_norm]
+
+
+def M_algo(Ce_norm, Cw_norm):
+    M = []
+    for i in range(len(Ce_norm)):
+        M.append(Cw_norm[i] - Ce_norm[i])
+    return M
+
+
+def convert_sub_to_string_and_filteration(lines):
+    full_sub = ''
+    full_sub_filtered = ''
+    stopWords = set(stopwords.words('english'))
+    ps = PorterStemmer()
+    #making full text
+    for line in lines:
+        full_sub += line.sub
+    #striping from סימני פיסוק
+    full_sub = full_sub.replace('.', ' ').replace('\\', '').replace('?', ' ').replace('\'','').replace('!', '').replace(',', '').replace(
+        '-', '').lower().split()
+    #stripping from conjunctions
+    for word in full_sub:
+        if  word not in stopWords:
+            full_sub_filtered+= ' ' + word
+    #stripping from linguistic biases
+    full_sub= full_sub_filtered
+    full_sub = word_tokenize(full_sub_filtered)
+    full_sub_filtered = ''
+    #print(full_sub)
+    for word in full_sub:
+            #print(word)
+            full_sub_filtered += ' ' + ps.stem(word=word)
+
+    full_sub_filtered = full_sub_filtered.split()
+    print(full_sub)
+    print(full_sub_filtered)
+    return full_sub_filtered
 
 
 def main(*argv):
