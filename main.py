@@ -50,4 +50,5 @@ movie_data[movie2]['M'] = a.M_algo(movie_data[movie2]['Ce_norm'],movie_data[movi
 movie_data[movie1]['full_sub'] = a.convert_sub_to_string_and_filteration(movie_data[movie1]['list_of_lines'])
 movie_data[movie2]['full_sub'] = a.convert_sub_to_string_and_filteration(movie_data[movie2]['list_of_lines'])
 print(movie_data[movie1]['full_sub'], '\n\n', movie_data[movie2]['full_sub'])
+#Todo: print the graphs
 #TODO:count the words apperences' can be don simply using dictionary
