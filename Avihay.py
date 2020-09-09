@@ -499,7 +499,7 @@ def collect_data_from_AB(movie, G):
     df = pd.read_csv(movie)
     list = [] #list of lineim
     counter = 0
-    #print(df)
+    print(df)
     for line in range (0,len(df)):
         if not (type(df['What is said'][line]) == float):
             counter+=1

@@ -57,10 +57,10 @@ print(movie_data[movie1]['full_sub'], '\n\n', movie_data[movie2]['full_sub'])
 #most common 20 words
 count = collections.Counter(movie_data[movie1]['full_sub'])
 movie_data[movie1]['most_common_20_words'] = count.most_common(20)
-print('Most common words:\n',movie_data[movie1]['most_common_20'])
+print('Most common words:\n',movie_data[movie1]['most_common_20_words'])
 
 count = collections.Counter(movie_data[movie2]['full_sub'])
 movie_data[movie2]['most_common_20_words'] = count.most_common(20)
-print('Most common words:\n',movie_data[movie2]['most_common_20'])
+print('Most common words:\n',movie_data[movie2]['most_common_20_words'])
 
 
