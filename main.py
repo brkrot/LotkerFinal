@@ -30,9 +30,9 @@ a.four_main_characters(movie1, G1, movie2, G2)
 
 '---------------------------------------Question 4-------------------------------------'
 #collecting the data from the AB
-#movie_data =
-#         'Dark Knight Rises'             =>     'Graph' || 'list_of_lines'    =>  the graph || line
-#         'Captain America - Civil War'   =>     'Graph' || 'list_of_lines'    =>  the graph || line
+#movie_data =       'first-tag'                             'second-tag'
+#         'Dark Knight Rises'             =>     'Graph','list_of_lines','Ce','Cw',M,'fullsub'  =>  the graph || line
+#         'Captain America - Civil War'   =>     'Graph','list_of_lines','Ce','Cw',M,'fullsub'   =>  the graph || line
 #
 movie_data = {movie1: a.collect_data_from_AB(movie1,G1)}
 movie_data[movie2] = a.collect_data_from_AB(movie2,G2)
@@ -53,20 +53,14 @@ movie_data[movie1]['full_sub'] = a.convert_sub_to_string_and_filteration(movie_d
 movie_data[movie2]['full_sub'] = a.convert_sub_to_string_and_filteration(movie_data[movie2]['list_of_lines'])
 print(movie_data[movie1]['full_sub'], '\n\n', movie_data[movie2]['full_sub'])
 #Todo: print the graphs
-#TODO:count the words apperences' can be don simply using dictionary
 
+#most common 20 words
 count = collections.Counter(movie_data[movie1]['full_sub'])
-movie_data[movie1]['most_common_20'] = count.most_common(20)
+movie_data[movie1]['most_common_20_words'] = count.most_common(20)
 print('Most common words:\n',movie_data[movie1]['most_common_20'])
 
 count = collections.Counter(movie_data[movie2]['full_sub'])
-movie_data[movie2]['most_common_20'] = count.most_common(20)
+movie_data[movie2]['most_common_20_words'] = count.most_common(20)
 print('Most common words:\n',movie_data[movie2]['most_common_20'])
 
-"""# List of all words across tweets
-all_words_no_urls = list(itertools.chain(*words_in_tweet))
 
-# Create counter
-counts_no_urls = collections.Counter(all_words_no_urls)
-
-cou"""

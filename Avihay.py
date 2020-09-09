@@ -492,6 +492,9 @@ def four_main_characters(movie1, G1, movie2, G2):
 
 
 def collect_data_from_AB(movie, G):
+    """
+    Return: {'Graph':G, 'list_of_lines': list}
+    """
     movie = movie + ' AB.csv'
     df = pd.read_csv(movie)
     list = [] #list of lineim
@@ -507,6 +510,9 @@ def collect_data_from_AB(movie, G):
 
 
 def make_clock_events(lines):
+    """
+    Return:[Ce,Ce_norm]
+    """
     Ce = []
     Ce_norm = []
     max_num_of_events = 0
@@ -522,6 +528,9 @@ def make_clock_events(lines):
 
 
 def make_clock_words(lines):
+    """
+    Return: [Cw,Cw_norm]
+    """
     Cw = []
     Cw_norm = []
     sum_of_words = 0
@@ -536,6 +545,9 @@ def make_clock_words(lines):
 
 
 def M_algo(Ce_norm, Cw_norm):
+    """
+    Return M - array
+    """
     M = []
     for i in range(len(Ce_norm)):
         M.append(Cw_norm[i] - Ce_norm[i])
@@ -543,6 +555,11 @@ def M_algo(Ce_norm, Cw_norm):
 
 
 def convert_sub_to_string_and_filteration(lines):
+    """
+    collect all words, filering connection words and /'?!,
+    Return: full_sub_filtered
+
+    """
     full_sub = ''
     full_sub_filtered = ''
     stopWords = set(stopwords.words('english'))
