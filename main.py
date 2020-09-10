@@ -5,6 +5,7 @@ import Avihay
 from LotkerFinal import Barak as b
 from LotkerFinal import Avihay as a
 import networkx as nx
+import matplotlib.pyplot as plt
 
 movie1 = 'Dark Knight Rises'
 movie2 = 'Captain America - Civil War'
@@ -52,7 +53,29 @@ movie_data[movie2]['M'] = a.M_algo(movie_data[movie2]['Ce_norm'],movie_data[movi
 movie_data[movie1]['full_sub'] = a.convert_sub_to_string_and_filteration(movie_data[movie1]['list_of_lines'])
 movie_data[movie2]['full_sub'] = a.convert_sub_to_string_and_filteration(movie_data[movie2]['list_of_lines'])
 print(movie_data[movie1]['full_sub'], '\n\n', movie_data[movie2]['full_sub'])
-#Todo: print the graphs
+
+#                               -----------printing----------
+plt.draw() # cleaning the board
+plt.show() # cleaning the board
+#printing graphs for the story
+a.make_axis_graph(movie_data[movie1]['Ce'], movie_data[movie1]['Cw'], movie_data[movie1]['Ce'], movie_data[movie1]['Ce']
+                  ,'Time','Clock','Cw','Ce','clock for '+movie1)
+a.make_axis_graph(movie_data[movie2]['Ce'], movie_data[movie2]['Cw'], movie_data[movie2]['Ce'], movie_data[movie2]['Ce']
+                  ,'Time','Clock','Cw','Ce','clock for '+movie2)
+a.make_axis_graph(movie_data[movie1]['Ce_norm'], movie_data[movie1]['Cw_norm'], movie_data[movie1]['Ce_norm'],
+                  movie_data[movie1]['Ce_norm'],
+                  'Time_norm','Clock_norm','Cw_norm','Ce_norm','Normalized clock for '+movie1)
+a.make_axis_graph(movie_data[movie2]['Ce_norm'], movie_data[movie2]['Cw_norm'], movie_data[movie2]['Ce_norm'],
+                  movie_data[movie2]['Ce_norm'],
+                  'Time_norm','Clock_norm','Cw_norm','Ce_norm','Normalized clock for'+movie2)
+a.make_axis_graph(movie_data[movie1]['Ce_norm'], movie_data[movie1]['M'], movie_data[movie1]['Ce_norm'],
+                  movie_data[movie1]['M'],
+                  'Time_norm','M_output','M','M','M - Algo for '+movie1)
+a.make_axis_graph(movie_data[movie2]['Ce_norm'], movie_data[movie2]['M'], movie_data[movie2]['Ce_norm'],
+                  movie_data[movie2]['M'],
+                  'Time_norm','M_output','M','M','M - Algo for '+movie2)
+
+
 
 #most common 20 words
 count = collections.Counter(movie_data[movie1]['full_sub'])

@@ -589,6 +589,16 @@ def convert_sub_to_string_and_filteration(lines):
     return full_sub_filtered
 
 
+def make_axis_graph(x1,y1,x2,y2,x_label, y_label,first_graph_symbol,second_graph_symbol,title):
+    plt.plot(x1, y1, x2, y2)
+    plt.legend([first_graph_symbol, second_graph_symbol])
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    plt.title(title)
+    plt.grid(True)
+    plt.show()
+
+
 def main(*argv):
 
     #make_civilwar_script()
