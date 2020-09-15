@@ -3,7 +3,31 @@ import pathlib
 from  networkx import networkx as nx  ,dijkstra_path_length as spw,floyd_warshall_numpy as mat ,neighbors
 import matplotlib.pyplot as plt
 import numpy as np
-import sys
+from networkx.algorithms.community import kernighan_lin_bisection, greedy_modularity_communities
+from  networkx import networkx as nx
+import networkx
+from scipy.optimize import minimize
+import numpy as np
+import networkx.algorithms.community as nxac
+from  networkx import networkx as nx  ,dijkstra_path_length as spw,floyd_warshall_numpy as mat ,neighbors
+import pandas as pd
+from dataclasses import dataclass
+import string
+
+
+@dataclass
+class Line:
+    num: int
+    talker: string
+    sub: string
+    #num_of_words: int
+
+@dataclass
+class SingleSurface:
+    x: []
+    y: []
+    name: string
+
 
 def makeABandScriptSrt(MovieName):
     print(MovieName)
@@ -209,7 +233,7 @@ def buildGraphFromList(speakers):
 
     return G
 
-def voronoi(G):
+def voronoi2(G,movie):
     global color_map
     G2 = nx.Graph()
 
@@ -218,8 +242,13 @@ def voronoi(G):
         G2.add_edge(u, v, weight=(1 / d['weight']))
 
     # Choosing 2 Ankers and as a result -> Dividing the Graph to 2 partitions
-    anker1 = 'TONY STARK'
-    anker2 = ['STEVE ROGERS','STEVE ROGERS']
+    if movie == 'Captain America - Civil War':
+        anker1 = 'STEVE ROGERS'
+        anker2 = ['TONY STARK', 'NATASHA ROMANOFF']
+    else:
+        anker1 = 'WAYNE'
+        anker2 = ['BANE', 'SELINA']
+
     color_map = []
     for v in G2:
         # print('v=' +str(v)," to anker:",anker1,'|',spw(G2, v, anker1)," to anker:",anker2,'|',spw(G2, v, anker2))
@@ -234,7 +263,7 @@ def voronoi(G):
             color_map.append('red')
     return G2
 
-def voting(G,i,j):
+def voting2(G, i, j,movieName):
     #(i,j) are vertixes we anchored
     #drawGraph(G,0)
     directedG = nx.Graph().to_directed()# from ex1 we already have directed graph
@@ -248,25 +277,33 @@ def voting(G,i,j):
             sum += G[v][u]['weight']
         allEdgesWeight[v] = sum
         sum = 0
+    print('sum of all the edges from the specific vertex')
     print(allEdgesWeight)
 
     m = nx.convert_matrix.to_numpy_matrix(G)
+    print('The graph converted to matrix')
     print(m)
 
 
 #divide each directed egde in the sum of edges weight from vertex V  (- normelaize the matrix)
     for k in range(m.shape[0]):
-        print(m[k].sum())
+        #print(m[k].sum())
         m[k]/=m[k].sum()
+
+    print('Normalized M - directed(!) - weight of the edge is divided by the sum of the edge from this vertex')
     print(m)
 
+    print('\n\n\n')
     #Setting Ankers  - "Eater Vertex"
     m[i]=0
     m[i,i]=1
     m[j] = 0
     m[j,j] = 1
 
-    print('VOTING  - MATRIX WITH ANKORS!\n',m)
+    print('VOTING  - MATRIX WITH ANKORS!\n\n', m)
+
+
+    print('Multipyng\n\n')
     for k in range (0,4):
         m=np.dot(m,m)
         print ('Mult -',k,'- :\n',m)
@@ -275,7 +312,7 @@ def voting(G,i,j):
     ank2 = list()#anckor 2 full list with 0's
     ank1_list = list() # list without 0's
     ank2_list = list() # list without 0's
-    for k in range (0,8):
+    for k in range (0,10):
         if m[k, i] >= m[k, j]:
             ank1.append(m[k, i])
             ank1_list.append(m[k, i])
@@ -284,7 +321,7 @@ def voting(G,i,j):
             ank2.append(m[k, j])
             ank2_list.append(m[k, j])
             ank1.append(0)
-
+    print('list of groups for the movie',movieName)
     print(ank1)
     print(ank2)
 
@@ -320,7 +357,7 @@ def drawGraph(G,color):
     # nx.draw_circular(G, node_color=color_map, with_labels=True, edge_color='b')
     # plt.show()
 
-def narrowGraphTo8MainCharacters(G,speakers):
+def narrowGraphTo10MainCharacters(G, speakers):
 
     mainCharacters = []
     speakersDictionary = {}
@@ -348,10 +385,178 @@ def narrowGraphTo8MainCharacters(G,speakers):
             G3.add_edge(u, v, weight=d['weight'])
     return G3
 
-def VORONOI(movieName):
+def voronoi(movieName):
     speakers = getTheSpeakersNames(movieName)
     abGraph = buildGraphFromList(speakers)
-    drawGraph(abGraph, 0)
-    smallABGraph = narrowGraphTo8MainCharacters(abGraph,speakers)
-    smallGraphWithPartitions_Voronoi = voronoi(smallABGraph)
+    #drawGraph(abGraph, 0)
+    smallABGraph = narrowGraphTo10MainCharacters(abGraph, speakers)
+    smallGraphWithPartitions_Voronoi = voronoi2(smallABGraph,movieName)
     drawGraph(smallGraphWithPartitions_Voronoi, 1)
+
+def voting(movieName):
+    speakers = getTheSpeakersNames(movieName)
+    abGraph = buildGraphFromList(speakers)
+    #drawGraph(abGraph, 0)
+    smallABGraph = narrowGraphTo10MainCharacters(abGraph, speakers)
+    #drawGraph(smallABGraph, 0)
+    if(movieName=='Dark Knight Rises'):
+        voting2(smallABGraph,4,5,movieName) #wane (3), bane(5)  - accordinly34
+    else:
+        voting2(smallABGraph,1, 8, movieName)  # captain america(1), tony stark(8)
+
+
+def otherAlgos(movieName):
+    speakers = getTheSpeakersNames(movieName)
+    abGraph = buildGraphFromList(speakers)
+    #drawGraph(abGraph, 0)
+    smallABGraph = narrowGraphTo10MainCharacters(abGraph, speakers)
+    #drawGraph(smallABGraph, 0)
+
+    print("modularity_communities")
+    print(nxac.greedy_modularity_communities(smallABGraph))
+    print(nxac.greedy_modularity_communities(abGraph))
+    print("centrality")
+    print(tuple(sorted(c) for c in next(nxac.centrality.girvan_newman(smallABGraph))))
+    print(tuple(sorted(c) for c in next(nxac.centrality.girvan_newman(abGraph))))
+    print("k_clique_communities")
+    print(sorted(list(nxac.k_clique_communities(smallABGraph,5))))
+    print(sorted(list(nxac.k_clique_communities(abGraph, 5))))
+    print("hierarchy")
+    print (networkx.algorithms.hierarchy.flow_hierarchy(smallABGraph.to_directed()))
+    print(networkx.algorithms.hierarchy.flow_hierarchy(abGraph.to_directed()))
+
+
+def collect_data_from_AB(movie):
+    """
+    Return: {'list_of_lines': list}
+    """
+    movie = movie + ' AB.csv'
+    df = pd.read_csv(movie)
+    list = []  #list of lineim
+    counter = 0
+    print(df)
+    for line in range (0,len(df)):
+        counter+=1
+        list.append( Line(df['Response'][line], df['Speaker'][line], df['What is said'][line]))#, len(df['What is said'][line].replace('\t', '').replace('  ', '').replace('\n','').split(' '))))
+    print(len(list))
+    return list
+
+def main_characters_steps(lines,names):
+    """
+    Return:[dict:mainCharacters]
+    """
+    mainCharacters = {}
+    for i in range(0, 4):
+        name = names[i]
+        mainCharacters[name] = []
+        c = 0
+        for i in range(1, len(lines)):
+            if name == lines[i].talker:
+                c += 2
+            mainCharacters[name].append(c)
+    return mainCharacters
+
+
+def print2DSurfaceCentralityGraph(movie, dict, names):
+
+    """
+    print2DSurfaceCentralityGraph
+    :param movie:
+    :param dict:
+    :param names:
+    :return: printing the 2d graph of the centraliy
+    """
+    plt.scatter(dict['0X'], dict['0Y'], c='b')
+    plt.scatter(dict['1X'], dict['1Y'], c='g')
+    plt.scatter(dict['2X'], dict['2Y'], c='r')
+    plt.scatter(dict['3X'], dict['3Y'], c='y')
+    plt.legend([names[0], names[1], names[2], names[3]])
+    plt.title(movie+" -  Degree Centrality Plane  ")
+    plt.xlabel("beginning time")
+    plt.ylabel("end time")
+    plt.show()
+
+def WhoIsTheMax(beg,end,names,stepsFunctionDict):
+    """
+    WhoIsTheMax - for every point which one is the max
+    :param beg: the beginning time in the clock
+    :param end: the end time in the clock
+    :param names: all the 4 names of the main characters
+    :param stepsFunctionDict:
+    :return: max's character's number in the names array
+    """
+    #print(end," ",beg)
+    a0 = stepsFunctionDict[names[0]][end] - stepsFunctionDict[names[0]][beg]
+    a1 = stepsFunctionDict[names[1]][end] - stepsFunctionDict[names[1]][beg]
+    a2 = stepsFunctionDict[names[2]][end] - stepsFunctionDict[names[2]][beg]
+    a3 = stepsFunctionDict[names[3]][end] - stepsFunctionDict[names[3]][beg]
+
+    if max(a0,a1,a2,a3)==a0:
+        return 0
+    elif max(a0,a1,a2,a3)==a1:
+        return 1
+    elif max(a0,a1,a2,a3)==a2:
+        return 2
+    elif max(a0,a1,a2,a3)==a3:
+        return 3
+
+def WhoIsTheMin(beg,end,names,stepsFunctionDict):
+    """
+       WhoIsTheMin - for every point which one is the min
+       :param beg: the beginning time in the clock
+       :param end: the end time in the clock
+       :param names: all the 4 names of the main characters
+       :param stepsFunctionDict:
+       :return: min's character's number in the names array
+       """
+    #print(end," ",beg)
+    a0 = stepsFunctionDict[names[0]][beg]-stepsFunctionDict[names[0]][end]
+    a1 = stepsFunctionDict[names[1]][beg] - stepsFunctionDict[names[1]][end]
+    a2 = stepsFunctionDict[names[2]][beg] - stepsFunctionDict[names[2]][end]
+    a3 = stepsFunctionDict[names[3]][beg] - stepsFunctionDict[names[3]][end]
+
+    if min(a0,a1,a2,a3)==a0:
+        return 0
+    elif min(a0,a1,a2,a3)==a1:
+        return 1
+    elif min(a0,a1,a2,a3)==a2:
+        return 2
+    elif min(a0,a1,a2,a3)==a3:
+        return 3
+
+def surface_centrality(movie,names):
+    """
+    surface_centrality
+    :param movie:
+    :param names:
+    :return: do not return anything, only printing the graph
+    """
+    lines = collect_data_from_AB(movie)
+    stepsFunctionDict4all4characters = main_characters_steps(lines, names)
+    # print(stepsFunctionDict4all4characters[names[0]],'\n')
+    # print(stepsFunctionDict4all4characters[names[1]], '\n')
+    # print(stepsFunctionDict4all4characters[names[2]], '\n')
+    # print(stepsFunctionDict4all4characters[names[3]], '\n')
+
+    #Creating room for all the points (2 arrays x,y for each of the characters)
+    graphsXYdictionary = {}
+    for i in range(0,4):
+       graphsXYdictionary[str(i)+'X'] = []
+       graphsXYdictionary[str(i)+'Y'] = []
+
+
+    #Double loop for setting all the dots to be shown on the board
+    for beg in range(1, len(lines)-1):
+        for end in range(0, len(lines)-1):
+            if (end > beg):  # left triangle
+                TheNumberOfTheMax = WhoIsTheMax(beg, end, names, stepsFunctionDict4all4characters)
+                graphsXYdictionary[str(TheNumberOfTheMax) + 'X'].append(beg)
+                graphsXYdictionary[str(TheNumberOfTheMax) + 'Y'].append(end)
+            elif (beg > end):   #right triangle
+                TheNumberOfTheMax = WhoIsTheMin(beg, end, names, stepsFunctionDict4all4characters)
+                graphsXYdictionary[str(TheNumberOfTheMax) + 'X'].append(beg)
+                graphsXYdictionary[str(TheNumberOfTheMax) + 'Y'].append(end)
+
+    print2DSurfaceCentralityGraph(movie, graphsXYdictionary, names)
+
+

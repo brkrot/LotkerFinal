@@ -1,9 +1,9 @@
 import collections
 
 import Barak as b
-import Avihay
-from LotkerFinal import Barak as b
-from LotkerFinal import Avihay as a
+import Avihay as a
+#from LotkerFinal import Barak as b
+#from LotkerFinal import Avihay as a
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -21,14 +21,16 @@ movie2 = 'Captain America - Civil War'
 G1 = a.make_all_graphs(movie1)
 G2 = a.make_all_graphs(movie2)
                             #   Part C & D  #
-a.four_main_characters(movie1, G1, movie2, G2)
+#a.four_main_characters(movie1, G1, movie2, G2)
 
 
 '---------------------------------------Question 3-------------------------------------'
-
-#b.VORONOI(movie2)
-
-
+# b.voronoi(movie1)
+# b.voronoi(movie2)
+# b.voting(movie1)
+# b.voting(movie2)
+# b.otherAlgos(movie1)
+# b.otherAlgos(movie2)
 '---------------------------------------Question 4-------------------------------------'
 #collecting the data from the AB
 #movie_data =       'first-tag'                             'second-tag'
@@ -87,3 +89,6 @@ movie_data[movie2]['most_common_20_words'] = count.most_common(20)
 print('Most common words:\n',movie_data[movie2]['most_common_20_words'])
 
 
+'---------------------------------------Question 5-------------------------------------'
+b.surface_centrality(movie1,['WAYNE', 'BLAKE', 'BANE', 'GORDON'])
+b.surface_centrality(movie2,['TONY STARK', 'STEVE ROGERS', 'NATASHA ROMANOFF', 'PETER PARKER'])
