@@ -2,15 +2,12 @@ import codecs
 import csv
 import networkx
 import networkx as nx
-import matplotlib.pyplot as plt
 from nltk.corpus.europarl_raw import english
 from sympy import Symbol
 import sys
 import string
-import pandas as pd
 from dataclasses import dataclass
 import nltk
-import re
 import numpy as np
 import pandas as pd
 from pprint import pprint
@@ -498,7 +495,7 @@ def make_clock_events(lines):
     #normCe
     for x in Ce:
         Ce_norm.append(float(x/max_num_of_events))
-    return [Ce,Ce_norm]
+    return [Ce,Ce_norm,max_num_of_events]
 
 
 def make_clock_words(lines):
@@ -515,16 +512,24 @@ def make_clock_words(lines):
     #normCe
     for x in Cw:
         Cw_norm.append(float(x/sum_of_words))
-    return [Cw,Cw_norm]
+    return [Cw,Cw_norm,sum_of_words]
 
+
+def norm_for_Xv(two_char_dic):
+    for j in two_char_dic.keys():
+        maxi = max(two_char_dic[j])
+        for i in range(0, len(two_char_dic[j])):
+            two_char_dic[j][i] = float(two_char_dic[j][i]/maxi)
+    return two_char_dic
 
 def M_algo(Ce_norm, Cw_norm):
     """
     Return M - array
     """
     M = []
-    for i in range(len(Ce_norm)):
+    for i in range(0,len(Cw_norm)):
         M.append(Cw_norm[i] - Ce_norm[i])
+    print('1 arg len: ', len(Ce_norm),'2 arg len: ', len(Cw_norm))
     return M
 
 
@@ -563,7 +568,7 @@ def convert_sub_to_string_and_filteration(lines):
     return full_sub_filtered
 
 
-def make_axis_graph(x1,y1,x2,y2,x_label, y_label,first_graph_symbol,second_graph_symbol,title):
+def make_axis_graph(x1, y1, x2, y2, x_label, y_label, first_graph_symbol, second_graph_symbol, title):
     plt.plot(x1, y1, x2, y2)
     plt.legend([first_graph_symbol, second_graph_symbol])
     plt.xlabel(x_label)
@@ -575,6 +580,9 @@ def make_axis_graph(x1,y1,x2,y2,x_label, y_label,first_graph_symbol,second_graph
 
 def draw_AB_graph(G, is_it_directed):
     arrowstyl = ''
+    return True
+    #Todo: to remove the PRINTING NOTE before הגשה
+    """
     if is_it_directed:
         arrowstyl = '-|>'
 
@@ -584,42 +592,49 @@ def draw_AB_graph(G, is_it_directed):
     nx.draw_networkx_labels(G, pos=position, font_size=5)
     nx.draw_networkx_edge_labels(G, pos=position, edge_labels=edge_labeld, font_size=5)
     plt.draw()
-    plt.show()
+    plt.show()"""
 
-def find_maxs_and_mins(list,list_of_time,split_list_for):
+
+def find_maxs_and_mins(list, list_of_time, split_list_for):
     maxlist = {}
     minlist = {}
-    x=0
-    size_of_part = int(len(list_of_time)/split_list_for)
-    reminder_size = len(list_of_time)%split_list_for
-    for i in range(0,split_list_for):
+    x = 0
+    size_of_part = int(len(list_of_time) / split_list_for)
+    reminder_size = len(list_of_time) % split_list_for
+    for i in range(0, split_list_for):
         local_max = 0
         local_max_location = 0
         local_min = 99999
         local_min_location = 0
-        for j in range(x,x+size_of_part):
-            if(list[j]>local_max):
-                local_max= list[j]
+        for j in range(x, x+size_of_part):
+            if list[j] > local_max:
+                local_max = list[j]
                 local_max_location = j
-            elif list[j]<local_min:
+            elif list[j] < local_min:
                 local_min = list[j]
                 local_min_location = j
         maxlist[local_max_location] = local_max
         minlist[local_min_location] = local_min
         x += size_of_part
-    if reminder_size !=0:
-        for j in range(x,x+reminder_size):
-            if(list[j]>local_max):
-                local_max= list[j]
+    if reminder_size != 0:
+        for j in range(x, x+reminder_size):
+            if list[j] > local_max:
+                local_max = list[j]
                 local_max_location = j
-            elif list[j]<local_min:
+            elif list[j] < local_min:
                 local_min = list[j]
                 local_min_location = j
         maxlist[local_max_location] = local_max
         minlist[local_min_location] = local_min
-    print('Max_List:',maxlist)
+    print('Max_List:', maxlist)
     print('Min_list:', minlist)
-    return {'max':maxlist, 'min': minlist}
+    return [maxlist, minlist]
+
+
+def print_lines_from_AB(list_of_data,list_of_indexes, title):
+    print(title)
+    for i in list_of_indexes:
+        print(list_of_data[i])
 
 def main(*argv):
 

@@ -22,6 +22,7 @@ class Line:
     sub: string
     #num_of_words: int
 
+
 @dataclass
 class SingleSurface:
     x: []
@@ -182,6 +183,7 @@ def makeABandScriptSrt(MovieName):
         for i in range(0, len(number) - 1):
             writer.writerow((subtitleSpeaker[i], beginTime[i], endTime[i], scriptText[i]))
 
+
 def getTheSpeakersNames(MovieName):
     print(MovieName)
     '************************************PART 1 AB.CSV***************************************************'
@@ -220,6 +222,7 @@ def getTheSpeakersNames(MovieName):
         i = i + 1
     return (speakers)
 
+
 def buildGraphFromList(speakers):
     edges = []
     G = nx.Graph()
@@ -232,6 +235,7 @@ def buildGraphFromList(speakers):
                 G.add_edge(speakers[i], speakers[i + 1], weight=1)
 
     return G
+
 
 def voronoi2(G,movie):
     global color_map
@@ -262,6 +266,7 @@ def voronoi2(G,movie):
         else:
             color_map.append('red')
     return G2
+
 
 def voting2(G, i, j,movieName):
     #(i,j) are vertixes we anchored
@@ -343,6 +348,7 @@ def voting2(G, i, j,movieName):
     list_for_return.append(ank2)
     return list_for_return
 
+
 def drawGraph(G,color):
     position = nx.circular_layout(G)
     edge_labeld = nx.get_edge_attributes(G, 'weight')
@@ -356,6 +362,7 @@ def drawGraph(G,color):
     plt.show()
     # nx.draw_circular(G, node_color=color_map, with_labels=True, edge_color='b')
     # plt.show()
+
 
 def narrowGraphTo10MainCharacters(G, speakers):
 
@@ -385,6 +392,7 @@ def narrowGraphTo10MainCharacters(G, speakers):
             G3.add_edge(u, v, weight=d['weight'])
     return G3
 
+
 def voronoi(movieName):
     speakers = getTheSpeakersNames(movieName)
     abGraph = buildGraphFromList(speakers)
@@ -392,6 +400,7 @@ def voronoi(movieName):
     smallABGraph = narrowGraphTo10MainCharacters(abGraph, speakers)
     smallGraphWithPartitions_Voronoi = voronoi2(smallABGraph,movieName)
     drawGraph(smallGraphWithPartitions_Voronoi, 1)
+
 
 def voting(movieName):
     speakers = getTheSpeakersNames(movieName)
@@ -441,16 +450,18 @@ def collect_data_from_AB(movie):
     print(len(list))
     return list
 
+
 def main_characters_steps(lines,names):
     """
     Return:[dict:mainCharacters]
     """
     mainCharacters = {}
-    for i in range(0, 4):
+    for i in range(0, len(names)):
         name = names[i]
         mainCharacters[name] = []
         c = 0
-        for i in range(1, len(lines)):
+        #Todo:notice i changed the range to be from 0 that is the way it should have been
+        for i in range(0, len(lines)):
             if name == lines[i].talker:
                 c += 2
             mainCharacters[name].append(c)
@@ -476,6 +487,7 @@ def print2DSurfaceCentralityGraph(movie, dict, names):
     plt.ylabel("end time")
     plt.show()
 
+
 def WhoIsTheMax(beg,end,names,stepsFunctionDict):
     """
     WhoIsTheMax - for every point which one is the max
@@ -500,6 +512,7 @@ def WhoIsTheMax(beg,end,names,stepsFunctionDict):
     elif max(a0,a1,a2,a3)==a3:
         return 3
 
+
 def WhoIsTheMin(beg,end,names,stepsFunctionDict):
     """
        WhoIsTheMin - for every point which one is the min
@@ -523,6 +536,7 @@ def WhoIsTheMin(beg,end,names,stepsFunctionDict):
         return 2
     elif min(a0,a1,a2,a3)==a3:
         return 3
+
 
 def surface_centrality(movie,names):
     """
@@ -558,5 +572,4 @@ def surface_centrality(movie,names):
                 graphsXYdictionary[str(TheNumberOfTheMax) + 'Y'].append(end)
 
     print2DSurfaceCentralityGraph(movie, graphsXYdictionary, names)
-
 
