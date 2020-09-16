@@ -2,8 +2,8 @@ import collections
 
 import Barak as b
 import Avihay as a
-#from LotkerFinal import Barak as b
-#from LotkerFinal import Avihay as a
+from LotkerFinal import Barak as b
+from LotkerFinal import Avihay as a
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -75,8 +75,10 @@ a.make_axis_graph(movie_data[movie1]['Ce_norm'], movie_data[movie1]['M'], movie_
                   'Time_norm','M_output','M','M','M - Algo for '+movie1)
 a.make_axis_graph(movie_data[movie2]['Ce_norm'], movie_data[movie2]['M'], movie_data[movie2]['Ce_norm'],
                   movie_data[movie2]['M'],
-                  'Time_norm','M_output','M','M','M - Algo for '+movie2)
-
+                  'Time_norm', 'M_output','M','M','M - Algo for '+movie2)
+#finding the 4 maxes and 4 mins of M
+a.find_maxs_and_mins(movie_data[movie1]['M'],movie_data[movie1]['Ce'], 4)
+a.find_maxs_and_mins(movie_data[movie2]['M'],movie_data[movie2]['Ce'], 4)
 
 
 #most common 20 words

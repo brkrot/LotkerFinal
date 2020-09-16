@@ -3,7 +3,6 @@ import csv
 import networkx
 import networkx as nx
 import matplotlib.pyplot as plt
-import numpy as np
 from nltk.corpus.europarl_raw import english
 from sympy import Symbol
 import sys
@@ -191,13 +190,7 @@ def make_all_graphs(movieName):
         G_direct_no_weights.add_edge(name[0], name[1], weight=1)
 
         # printing no weight graph
-    position = nx.circular_layout(G_direct_no_weights)
-    edge_labeld = nx.get_edge_attributes(G_direct_no_weights, 'weight')
-    nx.draw(G_direct_no_weights, pos=position, title='G_direct_no_weights', node_color='r', edge_color='b', arrowstyle='-|>')
-    nx.draw_networkx_labels(G_direct_no_weights, pos=position, font_size=5)
-    nx.draw_networkx_edge_labels(G_direct_no_weights, pos=position, edge_labels=edge_labeld, font_size=5)
-    plt.draw()
-    #plt.show()
+    draw_AB_graph(G_direct_no_weights,True)
 
     l1 = sorted(dict_directed_talker_unweighted.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
     print("\nDirected $ Unweighted graph 4 main character :\n", l1[0], l1[1], l1[2], l1[3])
@@ -210,13 +203,7 @@ def make_all_graphs(movieName):
         G_direct_weighted.add_edge(name[0], name[1], weight=int(dict_directed[v]))
 
         # printing Directed weighted graph
-    position = nx.circular_layout(G_direct_weighted)
-    edge_labeled = nx.get_edge_attributes(G_direct_weighted, 'weight')
-    nx.draw(G_direct_weighted, pos=position, node_color='r', edge_color='b', arrowstyle='-|>')
-    nx.draw_networkx_labels(G_direct_weighted, pos=position, font_size=5)
-    nx.draw_networkx_edge_labels(G_direct_weighted, pos=position, edge_labels=edge_labeled, font_size=5)
-    plt.draw()
-    #plt.show()
+    draw_AB_graph(G_direct_weighted,True)
 
     l1 = sorted(dict_directed_talker_weighted.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
     print("\nDirected $ weighted graph 4 main character :\n", l1[0], l1[1], l1[2], l1[3])
@@ -228,13 +215,7 @@ def make_all_graphs(movieName):
         G_undircet_no_weights.add_edge(name[0], name[1], weight=1)
 
         # printing undirected unweighted graph
-    position = nx.circular_layout(G_undircet_no_weights)
-    edge_labeled = nx.get_edge_attributes(G_undircet_no_weights, 'weight')
-    nx.draw(G_undircet_no_weights, pos=position, node_color='r', edge_color='b', arrowstyle='-|>')
-    nx.draw_networkx_labels(G_undircet_no_weights, pos=position, font_size=5)
-    nx.draw_networkx_edge_labels(G_undircet_no_weights, pos=position, edge_labels=edge_labeled, font_size=5)
-    plt.draw()
-    #plt.show()
+    draw_AB_graph(G_undircet_no_weights,False)
 
     l1 = sorted(dict_undirected_talker_unweighted.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
     print("\nUn - Directed $ Unweighted graph 4 main character :\n", l1[0], l1[1], l1[2], l1[3])
@@ -247,14 +228,7 @@ def make_all_graphs(movieName):
         G_undircet_weighted.add_edge(name[0], name[1], weight=int(dict_undirected[v]))
 
         # printing undirected weighted graph
-    position = nx.circular_layout(G_undircet_weighted)
-    edge_labeled = nx.get_edge_attributes(G_undircet_weighted, 'weight')
-
-    nx.draw(G_undircet_weighted, pos=position, node_color='r', edge_color='b', arrowstyle='-|>')
-    nx.draw_networkx_labels(G_undircet_weighted, pos=position, font_size=5)
-    nx.draw_networkx_edge_labels(G_undircet_weighted, pos=position, edge_labels=edge_labeled, font_size=5)
-    plt.draw()
-    #plt.show()
+    draw_AB_graph(G_undircet_weighted,False)
 
     l1 = sorted(dict_undirected_talker_weighted.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
     print("\nUn - Directed $ Weighted graph 4 main character :\n", l1[0], l1[1], l1[2], l1[3])
@@ -598,6 +572,54 @@ def make_axis_graph(x1,y1,x2,y2,x_label, y_label,first_graph_symbol,second_graph
     plt.grid(True)
     plt.show()
 
+
+def draw_AB_graph(G, is_it_directed):
+    arrowstyl = ''
+    if is_it_directed:
+        arrowstyl = '-|>'
+
+    position = nx.circular_layout(G)
+    edge_labeld = nx.get_edge_attributes(G, 'weight')
+    nx.draw(G, pos=position, title='G_direct_no_weights', node_color='r', edge_color='b', arrowstyle=arrowstyl)
+    nx.draw_networkx_labels(G, pos=position, font_size=5)
+    nx.draw_networkx_edge_labels(G, pos=position, edge_labels=edge_labeld, font_size=5)
+    plt.draw()
+    plt.show()
+
+def find_maxs_and_mins(list,list_of_time,split_list_for):
+    maxlist = {}
+    minlist = {}
+    x=0
+    size_of_part = int(len(list_of_time)/split_list_for)
+    reminder_size = len(list_of_time)%split_list_for
+    for i in range(0,split_list_for):
+        local_max = 0
+        local_max_location = 0
+        local_min = 99999
+        local_min_location = 0
+        for j in range(x,x+size_of_part):
+            if(list[j]>local_max):
+                local_max= list[j]
+                local_max_location = j
+            elif list[j]<local_min:
+                local_min = list[j]
+                local_min_location = j
+        maxlist[local_max_location] = local_max
+        minlist[local_min_location] = local_min
+        x += size_of_part
+    if reminder_size !=0:
+        for j in range(x,x+reminder_size):
+            if(list[j]>local_max):
+                local_max= list[j]
+                local_max_location = j
+            elif list[j]<local_min:
+                local_min = list[j]
+                local_min_location = j
+        maxlist[local_max_location] = local_max
+        minlist[local_min_location] = local_min
+    print('Max_List:',maxlist)
+    print('Min_list:', minlist)
+    return {'max':maxlist, 'min': minlist}
 
 def main(*argv):
 
