@@ -545,18 +545,31 @@ def convert_sub_to_string_and_filteration(lines):
     ps = PorterStemmer()
     #making full text
     for line in lines:
-        full_sub += line.sub
-    #striping from סימני פיסוק
-    full_sub = full_sub.replace('.', ' ').replace('\\', '').replace('?', ' ').replace('\'','').replace('!', '').replace(',', '').replace(
+        # striping from סימני פיסוק
+        line.sub = line.sub.replace('.', ' ').replace('\\', '').replace('?', ' ').replace('\'','').replace('!', '').replace(',', '').replace(
         '-', '').lower().split()
+        temp_sub = ''
+        temp_sub_filtered=''
+        # stripping from conjunctions
+        for word in line.sub:
+            if word not in stopWords:
+                temp_sub += ' ' + word
+                full_sub += ' ' + word
+        # stripping from linguistic biases
+        temp_sub = word_tokenize(temp_sub)
+        for word in temp_sub:
+            temp_sub_filtered += ' ' + ps.stem(word=word)
+        line.sub = temp_sub_filtered.split()
+      #  full_sub += line.sub
+    #striping from סימני פיסוק
+    #full_sub = full_sub.replace('.', ' ').replace('\\', '').replace('?', ' ').replace('\'','').replace('!', '').replace(',', '').replace(
+     #   '-', '').lower().split()
     #stripping from conjunctions
-    for word in full_sub:
-        if  word not in stopWords:
-            full_sub_filtered+= ' ' + word
+    #for word in full_sub:
+     #   if  word not in stopWords:
+      #      full_sub_filtered+= ' ' + word
     #stripping from linguistic biases
-    full_sub= full_sub_filtered
-    full_sub = word_tokenize(full_sub_filtered)
-    full_sub_filtered = ''
+    full_sub = word_tokenize(full_sub)
     #print(full_sub)
     for word in full_sub:
             #print(word)
@@ -635,6 +648,47 @@ def print_lines_from_AB(list_of_data,list_of_indexes, title):
     print(title)
     for i in list_of_indexes:
         print(list_of_data[i])
+
+
+def make_clock_Cl(movie):
+    list_of_lines = movie['list_of_lines']
+    tuple_of_common_words = movie['most_common_20_words']
+    dict_of_common_words = {}
+    Cl = []
+    i = 0
+    for common_word in tuple_of_common_words:
+        dict_of_common_words[common_word[0]] = [0]
+    for line in list_of_lines:
+        for word in line.sub:
+            #print(word)
+            for common_word in dict_of_common_words.keys():
+                #print('comonword: ', common_word)
+                i_last=len(dict_of_common_words[common_word])-1
+                dict_of_common_words[common_word].append(dict_of_common_words[common_word][i_last])
+                i_last+=1
+                if word == common_word:
+                    dict_of_common_words[common_word][i_last]+=1
+                    #print('******************************************************8')
+    #todo: if problem with sizing check here
+    key_words = list(dict_of_common_words.keys())
+    for common_word in key_words:
+        dict_of_common_words[common_word]=dict_of_common_words[common_word][1:len(dict_of_common_words[common_word])-1]
+    print(key_words[0])
+    dict_of_common_words_norm={}
+    vec = dict_of_common_words[key_words[0]]
+    dict_of_common_words_norm[key_words[0]]= np.divide(vec,max(vec))
+    for common_word in key_words[1:]:
+        vec = np.add(vec,dict_of_common_words[common_word])
+        dict_of_common_words_norm[common_word] = np.divide(dict_of_common_words[common_word],max(dict_of_common_words[common_word]))
+    vec_norm = vec/max(vec)
+
+    #print('Vec:\n', vec)
+    #print('Vec_norm:\n',vec_norm)
+    #print('dict_norm:\n', dict_of_common_words_norm)
+    return [dict_of_common_words, dict_of_common_words_norm, vec, vec_norm]
+
+
+
 
 def main(*argv):
 
