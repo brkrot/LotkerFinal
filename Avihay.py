@@ -26,6 +26,7 @@ import nltk
 # Plotting tools
 import pyLDAvis
 import pyLDAvis.gensim  # don't skip this
+import random
 import matplotlib.pyplot as plt
 from nltk.stem import PorterStemmer
 # Enable logging for gensim - optional
@@ -522,6 +523,7 @@ def norm_for_Xv(two_char_dic):
             two_char_dic[j][i] = float(two_char_dic[j][i]/maxi)
     return two_char_dic
 
+
 def M_algo(Ce_norm, Cw_norm):
     """
     Return M - array
@@ -615,7 +617,7 @@ def find_maxs_and_mins(list, list_of_time, split_list_for):
     size_of_part = int(len(list_of_time) / split_list_for)
     reminder_size = len(list_of_time) % split_list_for
     for i in range(0, split_list_for):
-        local_max = 0
+        local_max = -9999
         local_max_location = 0
         local_min = 99999
         local_min_location = 0
@@ -640,7 +642,11 @@ def find_maxs_and_mins(list, list_of_time, split_list_for):
         maxlist[local_max_location] = local_max
         minlist[local_min_location] = local_min
     print('Max_List:', maxlist)
+    for x in maxlist.keys():
+        print(float(x)/max(list_of_time))
     print('Min_list:', minlist)
+    for x in minlist.keys():
+        print(float(x)/max(list_of_time))
     return [maxlist, minlist]
 
 
@@ -649,44 +655,49 @@ def print_lines_from_AB(list_of_data,list_of_indexes, title):
     for i in list_of_indexes:
         print(list_of_data[i])
 
+def interpulation(list,cells_to_add):
+    print('before:\t', len(list))
+    while cells_to_add>0:
+        i = random.randint(1,len(list)-2)
+        new_x = (list[i-1]+list[i+1])/2
+        list.insert(i,new_x)
+        cells_to_add-=1
+    print('after:\t',len(list))
+    return list
 
 def make_clock_Cl(movie):
     list_of_lines = movie['list_of_lines']
     tuple_of_common_words = movie['most_common_20_words']
     dict_of_common_words = {}
-    Cl = []
-    i = 0
     for common_word in tuple_of_common_words:
         dict_of_common_words[common_word[0]] = [0]
     for line in list_of_lines:
-        for word in line.sub:
-            #print(word)
-            for common_word in dict_of_common_words.keys():
-                #print('comonword: ', common_word)
-                i_last=len(dict_of_common_words[common_word])-1
-                dict_of_common_words[common_word].append(dict_of_common_words[common_word][i_last])
-                i_last+=1
+        for common_word in dict_of_common_words.keys():
+            i_last = len(dict_of_common_words[common_word])
+            dict_of_common_words[common_word].append(dict_of_common_words[common_word][i_last-1])
+            for word in line.sub:
                 if word == common_word:
-                    dict_of_common_words[common_word][i_last]+=1
-                    #print('******************************************************8')
-    #todo: if problem with sizing check here
+                    dict_of_common_words[common_word][i_last] += 1
     key_words = list(dict_of_common_words.keys())
+
     for common_word in key_words:
-        dict_of_common_words[common_word]=dict_of_common_words[common_word][1:len(dict_of_common_words[common_word])-1]
+        #print('Vec:\n', len(dict_of_common_words[common_word]))
+        dict_of_common_words[common_word]=dict_of_common_words[common_word][1:len(dict_of_common_words[common_word])]
     print(key_words[0])
-    dict_of_common_words_norm={}
-    vec = dict_of_common_words[key_words[0]]
-    dict_of_common_words_norm[key_words[0]]= np.divide(vec,max(vec))
+    dict_of_common_words_norm = {}
+    vec = list(dict_of_common_words[key_words[0]])
+    dict_of_common_words_norm[key_words[0]] = np.divide(vec,max(vec))
     for common_word in key_words[1:]:
-        vec = np.add(vec,dict_of_common_words[common_word])
+        vec = np.add(vec,list(dict_of_common_words[common_word]))
+        #print('Vec:\n', len(vec))
         dict_of_common_words_norm[common_word] = np.divide(dict_of_common_words[common_word],max(dict_of_common_words[common_word]))
     vec_norm = vec/max(vec)
 
-    #print('Vec:\n', vec)
-    #print('Vec_norm:\n',vec_norm)
-    #print('dict_norm:\n', dict_of_common_words_norm)
+    #print('Vec:\n', len(vec))
+    #print('Vec_norm:\n',len(vec_norm))
+    #print('dict_norm:\n', dict_of_common_words_norm.shape())
+    #print('key_words:\n',key_words)
     return [dict_of_common_words, dict_of_common_words_norm, vec, vec_norm]
-
 
 
 

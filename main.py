@@ -121,6 +121,25 @@ print(movie_data[movie1]['most_common_20_words'][1])
 [movie_data[movie2]['Cl_vecs'],movie_data[movie2]['Cl_vecs_norm'],
  movie_data[movie2]['Cl_all_together'],movie_data[movie2]['Cl_all_together_norm']]\
     = a.make_clock_Cl(movie_data[movie2])
+#printing Cl for all words
+a.make_axis_graph(movie_data[movie1]['Ce_norm'],movie_data[movie1]['Cl_all_together_norm'], movie_data[movie2]['Ce_norm'],movie_data[movie2]['Cl_all_together_norm'],'Time_norm','Cl_norm',movie1,movie2,'Clock Of Common Words (t,Cl)')
+#making M(Ce,CL)
+movie_data[movie1]['M_CL']=a.M_algo(movie_data[movie1]['Ce_norm'],movie_data[movie1]['Cl_all_together_norm'])
+movie_data[movie2]['M_CL']=a.M_algo(movie_data[movie2]['Ce_norm'],movie_data[movie2]['Cl_all_together_norm'])
+#print M(Ce,CL)
+a.make_axis_graph(movie_data[movie1]['Ce_norm'],movie_data[movie1]['M_CL'],movie_data[movie2]['Ce_norm'],movie_data[movie2]['M_CL'],
+                  'Time_norm','CL-Ce',movie1,movie2,'M(Ce,CL) - Algo for most common 20 words ')
+a.find_maxs_and_mins(movie_data[movie1]['M_CL'],movie_data[movie1]['Ce'],4)
+a.find_maxs_and_mins(movie_data[movie2]['M_CL'],movie_data[movie2]['Ce'],4)
+
+#comperation of the two Words clocks, Cw
+#sizing movie 2
+Cw2_interputaled=a.interpulation(movie_data[movie2]['Cw_norm'],len(movie_data[movie1]['Cw_norm'])-len(movie_data[movie2]['Cw_norm']))
+M_Cw1_vs_Cw2 = a.M_algo(movie_data[movie1]['Cw_norm'],Cw2_interputaled)
+a.make_axis_graph(movie_data[movie1]['Ce_norm'],M_Cw1_vs_Cw2,movie_data[movie1]['Ce_norm'],M_Cw1_vs_Cw2,
+                  'Time_norm','Cw2-Cw1','Cw2-Cw1','Cw2-Cw1','M(Ce,Cw2-Cw1) ')
+a.find_maxs_and_mins(M_Cw1_vs_Cw2,movie_data[movie1]['Ce'],2)
+
 
 '---------------------------------------Question 5-------------------------------------'
 #b.surface_centrality(movie1,main_char_m1)
