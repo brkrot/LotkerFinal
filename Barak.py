@@ -270,9 +270,12 @@ def buildGraphFromListUndirectedUnweighted(speakers):
     return G
 
 
-def voronoi2(G,movie):
+def voronoi2(G,movie,isDirected):
     global color_map
-    G2 = nx.Graph()
+    if isDirected==0:
+        G2 = nx.Graph()
+    else:
+        G2 = nx.DiGraph()
 
     #Converting frequencies to distances
     for u, v, d in G.edges(data=True):
@@ -473,25 +476,25 @@ def voronoi(movieName):
     gDU = buildGraphFromListDirectedUnweighted(speakers)
     gUW = buildGraphFromListUndirectedWeighted(speakers)
     gUU = buildGraphFromListUndirectedUnweighted(speakers)
-    #drawGraph(gDW, 0)
-    #drawGraph(gDU, 0)
-    #drawGraph(gUW, 0)
-    #drawGraph(gUU, 0)
+    # drawGraph(gDW, 0)
+    # drawGraph(gDU, 0)
+    # drawGraph(gUW, 0)
+    # drawGraph(gUU, 0)
     smallgDW = narrowDiGraphTo10MainCharacters(gDW, speakers)
     smallgDU = narrowDiGraphTo10MainCharacters(gDU, speakers)
     smallgUW = narrowGraphTo10MainCharacters(gUW, speakers)
     smallgUU = narrowGraphTo10MainCharacters(gUU, speakers)
-    #drawGraph(smallgDW, 0)
-    #drawGraph(smallgDU, 0)
-    #drawGraph(smallgUW, 0)
-    #drawGraph(smallgUU, 0)
-    smallGraphWithPartitions_Voronoi = voronoi2(smallgDW,movieName)
+    # drawGraph(smallgDW, 0)
+    # drawGraph(smallgDU, 0)
+    # drawGraph(smallgUW, 0)
+    # drawGraph(smallgUU, 0)
+    smallGraphWithPartitions_Voronoi = voronoi2(smallgDW,movieName,1)
     drawGraph(smallGraphWithPartitions_Voronoi, 1)
-    smallGraphWithPartitions_Voronoi = voronoi2(smallgDU, movieName)
+    smallGraphWithPartitions_Voronoi = voronoi2(smallgDU, movieName,1)
     drawGraph(smallGraphWithPartitions_Voronoi, 1)
-    smallGraphWithPartitions_Voronoi = voronoi2(smallgUW, movieName)
+    smallGraphWithPartitions_Voronoi = voronoi2(smallgUW, movieName,0)
     drawGraph(smallGraphWithPartitions_Voronoi, 1)
-    smallGraphWithPartitions_Voronoi = voronoi2(smallgUU, movieName)
+    smallGraphWithPartitions_Voronoi = voronoi2(smallgUU, movieName,0)
     drawGraph(smallGraphWithPartitions_Voronoi, 1)
 
 
