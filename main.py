@@ -22,7 +22,7 @@ main_char_m2 = ['TONY STARK', 'STEVE ROGERS', 'NATASHA ROMANOFF', 'PETER PARKER'
 G1 = a.make_all_graphs(movie1)
 G2 = a.make_all_graphs(movie2)
                             #   Part C & D  #
-#a.four_main_characters(movie1, G1, movie2, G2)
+a.four_main_characters(movie1, G1, movie2, G2)
 
 
 '---------------------------------------Question 3-------------------------------------'

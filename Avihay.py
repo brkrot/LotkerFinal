@@ -579,9 +579,6 @@ def make_axis_graph(x1, y1, x2, y2, x_label, y_label, first_graph_symbol, second
 
 def draw_AB_graph(G, is_it_directed):
     arrowstyl = ''
-    return True
-    #Todo: to remove the PRINTING NOTE before הגשה
-    """
     if is_it_directed:
         arrowstyl = '-|>'
 
@@ -591,7 +588,7 @@ def draw_AB_graph(G, is_it_directed):
     nx.draw_networkx_labels(G, pos=position, font_size=5)
     nx.draw_networkx_edge_labels(G, pos=position, edge_labels=edge_labeld, font_size=5)
     plt.draw()
-    plt.show()"""
+    plt.show()
 
 
 def find_maxs_and_mins(list, list_of_time, split_list_for):
