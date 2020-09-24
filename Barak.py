@@ -583,7 +583,6 @@ def main_characters_steps(lines,names):
         name = names[i]
         mainCharacters[name] = []
         c = 0
-        #Todo:notice i changed the range to be from 0 that is the way it should have been
         for i in range(0, len(lines)):
             if name == lines[i].talker:
                 c += 2

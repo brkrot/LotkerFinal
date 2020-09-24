@@ -83,7 +83,7 @@ a.print_lines_from_AB(movie_data[movie2]['list_of_lines'], movie_data[movie2]['M
 a.print_lines_from_AB(movie_data[movie2]['list_of_lines'], movie_data[movie2]['M_min'].keys(), 'Min lines:')
 
 #making X_v & M(t,Xv)
-#Todo: check the normalization for now i norm using max value of each character
+
 movie_data[movie1]['Xv'] = a.norm_for_Xv(b.main_characters_steps(movie_data[movie1]['list_of_lines'], main_char_m1[0:2]))
 movie_data[movie2]['Xv'] = a.norm_for_Xv(b.main_characters_steps(movie_data[movie2]['list_of_lines'], main_char_m2[0:2]))
 movie_data[movie1]['M(t,Xv)1'] = a.M_algo(movie_data[movie1]['Ce_norm'],movie_data[movie1]['Xv'][main_char_m1[0]])
@@ -108,7 +108,7 @@ a.print_lines_from_AB(movie_data[movie2]['list_of_lines'], movie_data[movie2]['M
 a.print_lines_from_AB(movie_data[movie2]['list_of_lines'], movie_data[movie2]['Mxv2_max'].keys(), movie2 + ':\nMAX LINES:')
 a.print_lines_from_AB(movie_data[movie2]['list_of_lines'], movie_data[movie2]['Mxv2_min'].keys(), 'Min lines:')
 
-#todo: check the part of the combined M of two characters.
+
 
 # Most common 20 words
 movie_data[movie1]['full_sub'] = a.convert_sub_to_string_and_filteration(movie_data[movie1]['list_of_lines'])
