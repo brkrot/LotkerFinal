@@ -1,11 +1,14 @@
+#neww
+
 import collections
 import matplotlib.pyplot as plt
-# try:
-import Barak as b
-import Avihay as a
-# except:
-#     from LotkerFinal import Barak as b
-#     from LotkerFinal import Avihay as a
+
+try:
+    import Barak as b
+    import Avihay as a
+except:
+     from LotkerFinal import Barak as b
+     from LotkerFinal import Avihay as a
 #for later, making it modular
 movie = ['Dark Knight Rises', 'Captain America - Civil War']
 #
