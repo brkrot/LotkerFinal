@@ -1,3 +1,3 @@
-python pip install collections
+Python pip install collections
 python main.py
 pause

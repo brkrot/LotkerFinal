@@ -566,7 +566,7 @@ def collect_data_from_AB(movie):
     df = pd.read_csv(movie)
     list = []  #list of lineim
     counter = 0
-    print(df)
+    #print(df)
     for line in range (0,len(df)):
         counter+=1
         list.append( Line(df['Response'][line], df['Speaker'][line], df['What is said'][line]))#, len(df['What is said'][line].replace('\t', '').replace('  ', '').replace('\n','').split(' '))))

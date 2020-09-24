@@ -152,7 +152,7 @@ a.make_axis_graph(movie_data[movie1]['Ce_norm'],M_Cw1_vs_Cw2,movie_data[movie1][
                   'Time_norm','Cw2-Cw1','Cw2-Cw1','Cw2-Cw1','M(Ce,Cw2-Cw1) ')
 a.find_maxs_and_mins(M_Cw1_vs_Cw2,movie_data[movie1]['Ce'],2)
 
-
+print("This may take a while. about few minuts\nThanks for the patience :)")
 '---------------------------------------Question 5-------------------------------------'
 b.surface_centrality(movie1,main_char_m1)
 b.surface_centrality(movie2,main_char_m2)
