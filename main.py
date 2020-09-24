@@ -1,11 +1,12 @@
+#new try
 import collections
 import matplotlib.pyplot as plt
 try:
     import Barak as b
     import Avihay as a
 except:
-    from LotkerFinal import Barak as b
-    from LotkerFinal import Avihay as a
+     from LotkerFinal import Barak as b
+     from LotkerFinal import Avihay as a
 #for later, making it modular
 movie = ['Dark Knight Rises', 'Captain America - Civil War']
 #
@@ -28,12 +29,12 @@ G2 = a.make_all_graphs(movie2)
 
 
 '---------------------------------------Question 3-------------------------------------'
-# b.voronoi(movie1)
-# b.voronoi(movie2)
-# b.voting(movie1)
-# b.voting(movie2)
-# b.otherAlgos(movie1)
-# b.otherAlgos(movie2)
+b.voronoi(movie1)
+b.voronoi(movie2)
+b.voting(movie1)
+b.voting(movie2)
+b.otherAlgos(movie1)
+b.otherAlgos(movie2)
 '---------------------------------------Question 4-------------------------------------'
 #collecting the data from the AB
 #movie_data =       'first-tag'                             'second-tag'
@@ -54,9 +55,6 @@ movie_data[movie2] = a.collect_data_from_AB(movie2, G2)
 #print(movie_data[movie1]['Cw'],'\n',movie_data[movie1]['Cw_norm'],'\n',movie_data[movie2]['Cw'],'\n',movie_data[movie2]['Cw_norm'])
 movie_data[movie1]['M'] = a.M_algo(movie_data[movie1]['Ce_norm'], movie_data[movie1]['Cw_norm'])
 movie_data[movie2]['M'] = a.M_algo(movie_data[movie2]['Ce_norm'], movie_data[movie2]['Cw_norm'])
-#print(movie_data[movie1]['M'],'\n',movie_data[movie2]['M'])
-
-
 #                               -----------printing----------
 #printing graphs for the story
 a.make_axis_graph(movie_data[movie1]['Ce'], movie_data[movie1]['Cw'], movie_data[movie1]['Ce'], movie_data[movie1]['Ce']
@@ -129,8 +127,12 @@ movie_data[movie2]['M_CL']=a.M_algo(movie_data[movie2]['Ce_norm'],movie_data[mov
 #print M(Ce,CL)
 a.make_axis_graph(movie_data[movie1]['Ce_norm'],movie_data[movie1]['M_CL'],movie_data[movie2]['Ce_norm'],movie_data[movie2]['M_CL'],
                   'Time_norm','CL-Ce',movie1,movie2,'M(Ce,CL) - Algo for most common 20 words ')
-a.find_maxs_and_mins(movie_data[movie1]['M_CL'],movie_data[movie1]['Ce'],4)
-a.find_maxs_and_mins(movie_data[movie2]['M_CL'],movie_data[movie2]['Ce'],4)
+[movie_data[movie1]['Mcl_max'], movie_data[movie1]['Mcl_min']] =a.find_maxs_and_mins(movie_data[movie1]['M_CL'],movie_data[movie1]['Ce'],4)
+[movie_data[movie2]['Mcl_max'], movie_data[movie2]['Mcl_min']] =a.find_maxs_and_mins(movie_data[movie2]['M_CL'],movie_data[movie2]['Ce'],4)
+a.print_lines_from_AB(movie_data[movie1]['list_of_lines'], movie_data[movie1]['Mcl_max'].keys(), movie1 + ':\nMAX LINES:')
+a.print_lines_from_AB(movie_data[movie1]['list_of_lines'], movie_data[movie1]['Mcl_min'].keys(), 'Min lines:')
+a.print_lines_from_AB(movie_data[movie2]['list_of_lines'], movie_data[movie2]['Mcl_max'].keys(), movie2 + ':\nMAX LINES:')
+a.print_lines_from_AB(movie_data[movie2]['list_of_lines'], movie_data[movie2]['Mcl_min'].keys(), 'Min lines:')
 
 #comperation of the two Words clocks, Cw
 #sizing movie 2
@@ -142,5 +144,5 @@ a.find_maxs_and_mins(M_Cw1_vs_Cw2,movie_data[movie1]['Ce'],2)
 
 
 '---------------------------------------Question 5-------------------------------------'
-#b.surface_centrality(movie1,main_char_m1)
-#b.surface_centrality(movie2,main_char_m2)
+b.surface_centrality(movie1,main_char_m1)
+b.surface_centrality(movie2,main_char_m2)

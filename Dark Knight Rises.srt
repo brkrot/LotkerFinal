@@ -6133,7 +6133,7 @@ No.
 
 1373
 01:45:23,692 --> 01:45:25,818
--And must be allowed to die.
+-And must be allowed to die
 -No!
 
 1374
