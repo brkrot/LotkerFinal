@@ -95,12 +95,25 @@ a.make_axis_graph(movie_data[movie1]['Ce_norm'],movie_data[movie1]['M(t,Xv)1'],m
 a.make_axis_graph(movie_data[movie2]['Ce_norm'], movie_data[movie2]['M(t,Xv)1'], movie_data[movie2]['Ce_norm'],
                   movie_data[movie2]['M(t,Xv)2'],
                   'Time_norm','Xv-Ce',main_char_m2[0],main_char_m2[1],'M(t,Xv) - Algo for '+movie2)
+[movie_data[movie1]['Mxv1_max'], movie_data[movie1]['Mxv1_min']] =a.find_maxs_and_mins(movie_data[movie1]['M(t,Xv)1'],movie_data[movie1]['Ce'],2)
+[movie_data[movie1]['Mxv2_max'], movie_data[movie1]['Mxv2_min']] =a.find_maxs_and_mins(movie_data[movie1]['M(t,Xv)2'],movie_data[movie1]['Ce'],2)
+[movie_data[movie2]['Mxv1_max'], movie_data[movie2]['Mxv1_min']] =a.find_maxs_and_mins(movie_data[movie2]['M(t,Xv)1'],movie_data[movie2]['Ce'],2)
+[movie_data[movie2]['Mxv2_max'], movie_data[movie2]['Mxv2_min']] =a.find_maxs_and_mins(movie_data[movie2]['M(t,Xv)2'],movie_data[movie2]['Ce'],2)
+a.print_lines_from_AB(movie_data[movie1]['list_of_lines'], movie_data[movie1]['Mxv1_max'].keys(), movie1 + ':\nMAX LINES:')
+a.print_lines_from_AB(movie_data[movie1]['list_of_lines'], movie_data[movie1]['Mxv1_min'].keys(), 'Min lines:')
+a.print_lines_from_AB(movie_data[movie1]['list_of_lines'], movie_data[movie1]['Mxv2_max'].keys(), movie1 + ':\nMAX LINES:')
+a.print_lines_from_AB(movie_data[movie1]['list_of_lines'], movie_data[movie1]['Mxv2_min'].keys(), 'Min lines:')
+a.print_lines_from_AB(movie_data[movie2]['list_of_lines'], movie_data[movie2]['Mxv1_max'].keys(), movie2 + ':\nMAX LINES:')
+a.print_lines_from_AB(movie_data[movie2]['list_of_lines'], movie_data[movie2]['Mxv1_min'].keys(), 'Min lines:')
+a.print_lines_from_AB(movie_data[movie2]['list_of_lines'], movie_data[movie2]['Mxv2_max'].keys(), movie2 + ':\nMAX LINES:')
+a.print_lines_from_AB(movie_data[movie2]['list_of_lines'], movie_data[movie2]['Mxv2_min'].keys(), 'Min lines:')
+
 #todo: check the part of the combined M of two characters.
 
 # Most common 20 words
 movie_data[movie1]['full_sub'] = a.convert_sub_to_string_and_filteration(movie_data[movie1]['list_of_lines'])
 movie_data[movie2]['full_sub'] = a.convert_sub_to_string_and_filteration(movie_data[movie2]['list_of_lines'])
-print(movie_data[movie1]['full_sub'], '\n\n', movie_data[movie2]['full_sub'])
+#print(movie_data[movie1]['full_sub'], '\n\n', movie_data[movie2]['full_sub'])
 count = collections.Counter(movie_data[movie1]['full_sub'])
 movie_data[movie1]['most_common_20_words'] = count.most_common(20)
 print('Most common words:\n', movie_data[movie1]['most_common_20_words'])
