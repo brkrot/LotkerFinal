@@ -15,8 +15,8 @@ main_char_m2 = ['TONY STARK', 'STEVE ROGERS', 'NATASHA ROMANOFF', 'PETER PARKER'
 '---------------------------------------Question 2-------------------------------------'
 #Part A
 #This functions is making ab.csv table and srt-script file for each one of the movies
-#b.makeABandScriptSrt(movie1)
-#b.makeABandScriptSrt(movie2)
+#b.makeABandScriptSrt(movie1) #we made some hand work becouse of codacs probleme
+#b.makeABandScriptSrt(movie2) #we made some hand work becouse of codacs probleme
 
                             #   Part B      #
 G1 = a.make_all_graphs(movie1)
