@@ -223,30 +223,7 @@ def getTheSpeakersNames(MovieName):
     return (speakers)
 
 
-def buildGraphFromListDirectedUnweighted(speakers):
-    edges = []
-    G = nx.DiGraph()
-    for i in range(0, len(speakers) - 2):
-        if(speakers[i]!=speakers[i+1]):
-            G.add_edge(speakers[i], speakers[i + 1], weight=1)
-
-    return G
-
-def buildGraphFromListDirectedWeighted(speakers):
-    edges = []
-    G = nx.DiGraph()
-    for i in range(0, len(speakers) - 2):
-        if(speakers[i]!=speakers[i+1]):
-            if (G.has_edge(speakers[i], speakers[i + 1])):
-                G[speakers[i]][speakers[i + 1]]['weight'] += 1
-
-            else:
-                G.add_edge(speakers[i], speakers[i + 1], weight=1)
-
-    return G
-
-
-def buildGraphFromListUndirectedWeighted(speakers):
+def buildGraphFromList(speakers):
     edges = []
     G = nx.Graph()
     for i in range(0, len(speakers) - 2):
@@ -256,16 +233,6 @@ def buildGraphFromListUndirectedWeighted(speakers):
 
             else:
                 G.add_edge(speakers[i], speakers[i + 1], weight=1)
-
-    return G
-
-
-def buildGraphFromListUndirectedUnweighted(speakers):
-    edges = []
-    G = nx.Graph()
-    for i in range(0, len(speakers) - 2):
-        if(speakers[i]!=speakers[i+1]):
-            G.add_edge(speakers[i], speakers[i + 1], weight=1)
 
     return G
 
@@ -301,7 +268,7 @@ def voronoi2(G,movie):
     return G2
 
 
-def votingActualAlgo(G, firstAnker, secondAnker, movieName):
+def voting2(G, i, j,movieName):
     #(i,j) are vertixes we anchored
     #drawGraph(G,0)
     directedG = nx.Graph().to_directed()# from ex1 we already have directed graph
@@ -315,40 +282,36 @@ def votingActualAlgo(G, firstAnker, secondAnker, movieName):
             sum += G[v][u]['weight']
         allEdgesWeight[v] = sum
         sum = 0
-    #print('list of main characters')
-    #print(allEdgesWeight.keys())
+    print('sum of all the edges from the specific vertex')
+    print(allEdgesWeight)
 
     m = nx.convert_matrix.to_numpy_matrix(G)
-    #print('The graph converted to matrix')
-    #print(m)
+    print('The graph converted to matrix')
+    print(m)
 
 
-    #divide each directed egde in the sum of edges weight from vertex V  (- normelaize the matrix)
+#divide each directed egde in the sum of edges weight from vertex V  (- normelaize the matrix)
     for k in range(m.shape[0]):
         #print(m[k].sum())
         m[k]/=m[k].sum()
 
-    #print('Normalized M - directed(!) - weight of the edge is divided by the sum of the edge from this vertex')
-    #print(m)
-    names = list(allEdgesWeight.keys())
-    i= names.index(firstAnker)
-    j=names.index(secondAnker)
+    print('Normalized M - directed(!) - weight of the edge is divided by the sum of the edge from this vertex')
+    print(m)
 
-
-    #print('\n\n\n')
+    print('\n\n\n')
     #Setting Ankers  - "Eater Vertex"
     m[i]=0
     m[i,i]=1
     m[j] = 0
     m[j,j] = 1
 
-    #print('VOTING  - MATRIX WITH ANKORS!\n\n', m)
+    print('VOTING  - MATRIX WITH ANKORS!\n\n', m)
 
 
-    #print('Multipyng\n\n')
+    print('Multipyng\n\n')
     for k in range (0,4):
         m=np.dot(m,m)
-        #print ('Mult -',k,'- :\n',m)
+        print ('Mult -',k,'- :\n',m)
     list_for_return = list()
     ank1 = list()#anckor 1 full list with 0's
     ank2 = list()#anckor 2 full list with 0's
@@ -364,19 +327,8 @@ def votingActualAlgo(G, firstAnker, secondAnker, movieName):
             ank2_list.append(m[k, j])
             ank1.append(0)
     print('list of groups for the movie',movieName)
-    names=list(allEdgesWeight.keys())
-    groupI1=[]
-    groupJ2=[]
-    for k in range(len(names)):
-        if ank1[k]>ank2[k]:
-            groupI1.append(names[k])
-        else:
-            groupJ2.append(names[k])
-    print(names[i],'=',groupI1,' | ',names[j],'=',groupJ2) #1~i 2~J
-
-    # print(ank1)
-    # print(ank2)
-    print('\n')
+    print(ank1)
+    print(ank2)
 
     #
     # for u, v, d in G.edges(data=True):
@@ -433,6 +385,7 @@ def narrowGraphTo10MainCharacters(G, speakers):
         mainCharacters.append(sortedSpeakers[i][0])
 
     print()
+
     G3 = nx.Graph()
     for u, v, d in G.edges(data=True):
         if (u in mainCharacters and v in mainCharacters):
@@ -440,119 +393,46 @@ def narrowGraphTo10MainCharacters(G, speakers):
     return G3
 
 
-def narrowDiGraphTo10MainCharacters(G, speakers):
-
-    mainCharacters = []
-    speakersDictionary = {}
-
-
-   #Putting all the speakers in a dictionary
-    for speaker in speakers:
-        if speaker in speakersDictionary:
-            speakersDictionary[speaker] = speakersDictionary[speaker] + 1
-        else:
-            speakersDictionary[speaker] = 1
-
-    #sorting in order to get the main characters
-    sortedSpeakers = sorted(speakersDictionary.items(), key=lambda kv: kv[1],reverse=True)
-    mainCharactersNumber=10
-
-    for i in range(mainCharactersNumber):
-        mainCharacters.append(sortedSpeakers[i][0])
-
-    print()
-    G3 = nx.DiGraph()
-    for u, v, d in G.edges(data=True):
-        if (u in mainCharacters and v in mainCharacters):
-            G3.add_edge(u, v, weight=d['weight'])
-    return G3
-
 def voronoi(movieName):
     speakers = getTheSpeakersNames(movieName)
-    gDW= buildGraphFromListDirectedWeighted(speakers)
-    gDU = buildGraphFromListDirectedUnweighted(speakers)
-    gUW = buildGraphFromListUndirectedWeighted(speakers)
-    gUU = buildGraphFromListUndirectedUnweighted(speakers)
-    #drawGraph(gDW, 0)
-    #drawGraph(gDU, 0)
-    #drawGraph(gUW, 0)
-    #drawGraph(gUU, 0)
-    smallgDW = narrowDiGraphTo10MainCharacters(gDW, speakers)
-    smallgDU = narrowDiGraphTo10MainCharacters(gDU, speakers)
-    smallgUW = narrowGraphTo10MainCharacters(gUW, speakers)
-    smallgUU = narrowGraphTo10MainCharacters(gUU, speakers)
-    #drawGraph(smallgDW, 0)
-    #drawGraph(smallgDU, 0)
-    #drawGraph(smallgUW, 0)
-    #drawGraph(smallgUU, 0)
-    smallGraphWithPartitions_Voronoi = voronoi2(smallgDW,movieName)
-    drawGraph(smallGraphWithPartitions_Voronoi, 1)
-    smallGraphWithPartitions_Voronoi = voronoi2(smallgDU, movieName)
-    drawGraph(smallGraphWithPartitions_Voronoi, 1)
-    smallGraphWithPartitions_Voronoi = voronoi2(smallgUW, movieName)
-    drawGraph(smallGraphWithPartitions_Voronoi, 1)
-    smallGraphWithPartitions_Voronoi = voronoi2(smallgUU, movieName)
+    abGraph = buildGraphFromList(speakers)
+    #drawGraph(abGraph, 0)
+    smallABGraph = narrowGraphTo10MainCharacters(abGraph, speakers)
+    smallGraphWithPartitions_Voronoi = voronoi2(smallABGraph,movieName)
     drawGraph(smallGraphWithPartitions_Voronoi, 1)
 
 
 def voting(movieName):
     speakers = getTheSpeakersNames(movieName)
-    gDW = buildGraphFromListDirectedWeighted(speakers)
-    gDU = buildGraphFromListDirectedUnweighted(speakers)
-    gUW = buildGraphFromListUndirectedWeighted(speakers)
-    gUU = buildGraphFromListUndirectedUnweighted(speakers)
-    # drawGraph(gDW, 0)
-    # drawGraph(gDU, 0)
-    # drawGraph(gUW, 0)
-    # drawGraph(gUU, 0)
-    smallgDW = narrowDiGraphTo10MainCharacters(gDW, speakers)
-    smallgDU = narrowDiGraphTo10MainCharacters(gDU, speakers)
-    smallgUW = narrowGraphTo10MainCharacters(gUW, speakers)
-    smallgUU = narrowGraphTo10MainCharacters(gUU, speakers)
-    # drawGraph(smallgDW, 0)
-    # drawGraph(smallgDU, 0)
-    # drawGraph(smallgUW, 0)
-    # drawGraph(smallgUU, 0)
+    abGraph = buildGraphFromList(speakers)
+    #drawGraph(abGraph, 0)
+    smallABGraph = narrowGraphTo10MainCharacters(abGraph, speakers)
+    #drawGraph(smallABGraph, 0)
     if(movieName=='Dark Knight Rises'):
-        print('DirectedWeighted')
-        votingActualAlgo(smallgDW, 'WAYNE', 'BANE', movieName) #wane (3), bane(5)  - accordinly34
-        print('DirectedUnweighted')
-        votingActualAlgo(smallgDU, 'WAYNE', 'BANE', movieName)  # wane (3), bane(5)  - accordinly34
-        print('UndirectedWeighted')
-        votingActualAlgo(smallgUW, 'WAYNE', 'BANE', movieName)  # wane (3), bane(5)  - accordinly34
-        print('UndirectedUnweighted')
-        votingActualAlgo(smallgUU, 'WAYNE', 'BANE', movieName)  # wane (3), bane(5)  - accordinly34
-
+        voting2(smallABGraph,4,5,movieName) #wane (3), bane(5)  - accordinly34
     else:
-        print('DirectedWeighted')
-        votingActualAlgo(smallgDW, 'STEVE ROGERS', 'TONY STARK' , movieName)  # captain america(1), tony stark(8)
-        print('DirectedUnweighted')
-        votingActualAlgo(smallgDU, 'STEVE ROGERS', 'TONY STARK', movieName)  # captain america(1), tony stark(8)
-        print('UndirectedWeighted')
-        votingActualAlgo(smallgUW, 'STEVE ROGERS', 'TONY STARK', movieName)  # captain america(1), tony stark(8)
-        print('UndirectedUnweighted')
-        votingActualAlgo(smallgUU, 'STEVE ROGERS', 'TONY STARK', movieName)  # captain america(1), tony stark(8)
+        voting2(smallABGraph,1, 8, movieName)  # captain america(1), tony stark(8)
 
 
 def otherAlgos(movieName):
     speakers = getTheSpeakersNames(movieName)
-    gUW = buildGraphFromListUndirectedWeighted(speakers)
+    abGraph = buildGraphFromList(speakers)
     #drawGraph(abGraph, 0)
-    smallgUW = narrowGraphTo10MainCharacters(gUW, speakers)
+    smallABGraph = narrowGraphTo10MainCharacters(abGraph, speakers)
     #drawGraph(smallABGraph, 0)
 
     print("modularity_communities")
-    print(nxac.greedy_modularity_communities(smallgUW))
-    print(nxac.greedy_modularity_communities(gUW))
+    print(nxac.greedy_modularity_communities(smallABGraph))
+    print(nxac.greedy_modularity_communities(abGraph))
     print("centrality")
-    print(tuple(sorted(c) for c in next(nxac.centrality.girvan_newman(smallgUW))))
-    print(tuple(sorted(c) for c in next(nxac.centrality.girvan_newman(gUW))))
+    print(tuple(sorted(c) for c in next(nxac.centrality.girvan_newman(smallABGraph))))
+    print(tuple(sorted(c) for c in next(nxac.centrality.girvan_newman(abGraph))))
     print("k_clique_communities")
-    print(sorted(list(nxac.k_clique_communities(smallgUW,5))))
-    print(sorted(list(nxac.k_clique_communities(gUW, 5))))
+    print(sorted(list(nxac.k_clique_communities(smallABGraph,5))))
+    print(sorted(list(nxac.k_clique_communities(abGraph, 5))))
     print("hierarchy")
-    print (networkx.algorithms.hierarchy.flow_hierarchy(smallgUW.to_directed()))
-    print(networkx.algorithms.hierarchy.flow_hierarchy(gUW.to_directed()))
+    print (networkx.algorithms.hierarchy.flow_hierarchy(smallABGraph.to_directed()))
+    print(networkx.algorithms.hierarchy.flow_hierarchy(abGraph.to_directed()))
 
 
 def collect_data_from_AB(movie):
