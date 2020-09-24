@@ -1,11 +1,11 @@
 import collections
 import matplotlib.pyplot as plt
-try:
-    import Barak as b
-    import Avihay as a
-except:
-    from LotkerFinal import Barak as b
-    from LotkerFinal import Avihay as a
+# try:
+import Barak as b
+import Avihay as a
+# except:
+#     from LotkerFinal import Barak as b
+#     from LotkerFinal import Avihay as a
 #for later, making it modular
 movie = ['Dark Knight Rises', 'Captain America - Civil War']
 #
@@ -17,8 +17,8 @@ main_char_m2 = ['TONY STARK', 'STEVE ROGERS', 'NATASHA ROMANOFF', 'PETER PARKER'
 '---------------------------------------Question 2-------------------------------------'
 #Part A
 #This functions is making ab.csv table and srt-script file for each one of the movies
-#b.makeABandScriptSrt(movie1)
-#b.makeABandScriptSrt(movie2)
+b.makeABandScriptSrt(movie1)
+b.makeABandScriptSrt(movie2)
 
                             #   Part B      #
 G1 = a.make_all_graphs(movie1)
@@ -28,12 +28,12 @@ G2 = a.make_all_graphs(movie2)
 
 
 '---------------------------------------Question 3-------------------------------------'
-# b.voronoi(movie1)
-# b.voronoi(movie2)
-# b.voting(movie1)
-# b.voting(movie2)
-# b.otherAlgos(movie1)
-# b.otherAlgos(movie2)
+b.voronoi(movie1)
+b.voronoi(movie2)
+b.voting(movie1)
+b.voting(movie2)
+b.otherAlgos(movie1)
+b.otherAlgos(movie2)
 '---------------------------------------Question 4-------------------------------------'
 #collecting the data from the AB
 #movie_data =       'first-tag'                             'second-tag'
@@ -115,5 +115,5 @@ print('Most common words:\n', movie_data[movie2]['most_common_20_words'])
 
 
 '---------------------------------------Question 5-------------------------------------'
-#b.surface_centrality(movie1,main_char_m1)
-#b.surface_centrality(movie2,main_char_m2)
+b.surface_centrality(movie1,main_char_m1)
+b.surface_centrality(movie2,main_char_m2)
