@@ -1,38 +1,24 @@
 import codecs
 import csv
-import networkx
-import networkx as nx
-from nltk.corpus.europarl_raw import english
-from sympy import Symbol
-import sys
 import string
+import sys
 from dataclasses import dataclass
+import networkx as nx
 import nltk
 import numpy as np
 import pandas as pd
-from pprint import pprint
 from nltk.corpus import stopwords
 # Gensim
-import gensim
-import gensim.corpora as corpora
-from gensim.utils import simple_preprocess
-from gensim.models import CoherenceModel
-from nltk.tokenize import sent_tokenize, word_tokenize
-from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 nltk.download('stopwords')
 nltk.download('punkt')
-# spacy for lemmatization
-import nltk
 # Plotting tools
-import pyLDAvis
-import pyLDAvis.gensim  # don't skip this
 import random
 import matplotlib.pyplot as plt
 from nltk.stem import PorterStemmer
 # Enable logging for gensim - optional
 import logging
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.ERROR)
-
 import warnings
 warnings.filterwarnings("ignore",category=DeprecationWarning)
 #AB_FilePath = movieName+' AB.csv'
@@ -67,8 +53,6 @@ def make_civilwar_script():
                     elif look_for_ending_bracelet:
                         if '$' in part:
                             look_for_ending_bracelet = False
-                        else:
-                            print(part)
                     elif not look_for_ending_bracelet:
                         output_file.write(part.replace('\n', ''))
                         output_file.write('\n')
@@ -84,7 +68,6 @@ def make_all_graphs(movieName):
     with open(AB_FilePath) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         # making new dic
-
         for row in readCSV:
             if len(row) > 0:
                 name = row[1]
@@ -94,11 +77,11 @@ def make_all_graphs(movieName):
                     thisdict[name] = 1
 
         # read name
-        for x in thisdict:
-            print(x, thisdict[x])
-    print(thisdict)
+        #for x in thisdict:
+            #print(x, thisdict[x])
+    #print(thisdict)
     l = sorted(thisdict.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
-    print(sorted(thisdict.items(), key=lambda kv: (kv[1], kv[0]), reverse=True))
+    #print(sorted(thisdict.items(), key=lambda kv: (kv[1], kv[0]), reverse=True))
     print(l[0], l[1], l[2], l[3])
 
     # making graph nodes and weights - directed
@@ -135,7 +118,7 @@ def make_all_graphs(movieName):
 
     print("********** directed graph******", "\n ******")
     l1 = sorted(dict_directed.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
-    print(sorted(dict_directed.items(), key=lambda kv: (kv[1], kv[0]), reverse=True))
+    #print(sorted(dict_directed.items(), key=lambda kv: (kv[1], kv[0]), reverse=True))
     print(l1[0], l1[1], l1[2], l1[3])
 
     # making graph nodes and weights - undirected
@@ -173,7 +156,7 @@ def make_all_graphs(movieName):
 
     print("********** undirected graph******", "\n ******")
     l2 = sorted(dict_undirected.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
-    print(sorted(dict_undirected.items(), key=lambda kv: (kv[1], kv[0]), reverse=True))
+    #print(sorted(dict_undirected.items(), key=lambda kv: (kv[1], kv[0]), reverse=True))
     print(l2[0], l2[1], l2[2], l2[3])
 
     #
@@ -283,8 +266,8 @@ def make_all_graphs(movieName):
     # Eraasing wrong names
    # del speakersDictionary['i']
    # del speakersDictionary['harry/ron']
-    str1 = 'HARRY/RON/FRED/GEORGE'
-    str1 = str1.lower()
+    #str1 = 'HARRY/RON/FRED/GEORGE'
+    #str1 = str1.lower()
    # del speakersDictionary[str1]
    # del speakersDictionary['professor']
    # del speakersDictionary['harry/ron/hermione']
@@ -297,7 +280,7 @@ def make_all_graphs(movieName):
         for name in speakersDictionary:
             if (name in line):
                 listOfTalkers.append(name)
-    print(listOfTalkers)
+    #print(listOfTalkers)
 
     '******************3, directed weighted graph***************'
     G3 = nx.DiGraph()
@@ -471,13 +454,13 @@ def collect_data_from_AB(movie, G):
     df = pd.read_csv(movie)
     list = [] #list of lineim
     counter = 0
-    print(df)
+    #print(df)
     for line in range (0,len(df)):
         if not (type(df['What is said'][line]) == float):
             counter+=1
             #print(df['Speaker'][line], '\t', df['What is said'][line])
             list.append( Line(counter, df['Speaker'][line], df['What is said'][line], len(df['What is said'][line].replace('\t', '').replace('  ', '').replace('\n','').split(' '))))
-    print(len(list))
+    #print(len(list))
     return{'Graph':G, 'list_of_lines': list}
 
 
@@ -531,7 +514,7 @@ def M_algo(Ce_norm, Cw_norm):
     M = []
     for i in range(0,len(Cw_norm)):
         M.append(Cw_norm[i] - Ce_norm[i])
-    print('1 arg len: ', len(Ce_norm),'2 arg len: ', len(Cw_norm))
+    #print('1 arg len: ', len(Ce_norm),'2 arg len: ', len(Cw_norm))
     return M
 
 
@@ -578,8 +561,8 @@ def convert_sub_to_string_and_filteration(lines):
             full_sub_filtered += ' ' + ps.stem(word=word)
 
     full_sub_filtered = full_sub_filtered.split()
-    print(full_sub)
-    print(full_sub_filtered)
+    #print(full_sub)
+    #print(full_sub_filtered)
     return full_sub_filtered
 
 
@@ -655,15 +638,15 @@ def print_lines_from_AB(list_of_data,list_of_indexes, title):
     for i in list_of_indexes:
         print(list_of_data[i])
 
+
 def interpulation(list,cells_to_add):
-    print('before:\t', len(list))
     while cells_to_add>0:
         i = random.randint(1,len(list)-2)
         new_x = (list[i-1]+list[i+1])/2
         list.insert(i,new_x)
         cells_to_add-=1
-    print('after:\t',len(list))
     return list
+
 
 def make_clock_Cl(movie):
     list_of_lines = movie['list_of_lines']
@@ -683,7 +666,7 @@ def make_clock_Cl(movie):
     for common_word in key_words:
         #print('Vec:\n', len(dict_of_common_words[common_word]))
         dict_of_common_words[common_word]=dict_of_common_words[common_word][1:len(dict_of_common_words[common_word])]
-    print(key_words[0])
+    #print(key_words[0])
     dict_of_common_words_norm = {}
     vec = list(dict_of_common_words[key_words[0]])
     dict_of_common_words_norm[key_words[0]] = np.divide(vec,max(vec))
@@ -698,7 +681,6 @@ def make_clock_Cl(movie):
     #print('dict_norm:\n', dict_of_common_words_norm.shape())
     #print('key_words:\n',key_words)
     return [dict_of_common_words, dict_of_common_words_norm, vec, vec_norm]
-
 
 
 def main(*argv):
@@ -720,11 +702,11 @@ def main(*argv):
 
     """Best way of conversion"""
     mat4 = nx.to_numpy_array(G_direct_weighted)  # best way of convertion """
-    print('new:\n', G_undircet_no_weights.degree(), '\n', mat)
+    #print('new:\n', G_undircet_no_weights.degree(), '\n', mat)
     np.set_printoptions(threshold=np.inf)
 
-    print('matrix after alteration with lowest distances:', mat4)
-    print('networkx.algorithms.hierarchy.flow_hierarchy(G_direct_weighted):\n', networkx.algorithms.hierarchy.flow_hierarchy(G_direct_weighted))
+    #print('matrix after alteration with lowest distances:', mat4)
+    #print('networkx.algorithms.hierarchy.flow_hierarchy(G_direct_weighted):\n', networkx.algorithms.hierarchy.flow_hierarchy(G_direct_weighted))
 
 
 if __name__ == "__main__":
